@@ -1,0 +1,70 @@
+{%extends '/home.html'%}
+
+{%block content%}
+<div class="flex justify-center">
+  <div class="mt-8 w-full max-w-lg" >
+    <div class="mb-5 mt-3 text-center text-white text-3xl font-bold">
+      <h1>Schedule Pool Service</h1>
+    </div>
+    {% if session().has('success') %}
+       <div class="text-center m-5">
+           {{ session().get('success') }}
+       </div>
+       {% endif %}
+    {% if bag().any() %}
+        {% for error in bag().messages() %}
+            <div class="alert alert-danger text-center m-5" role="alert">
+                {{ error }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <form class=" bg-white shadow-md rounded px-5 pt-6 pb-8 mb-4" action="" method="POST" >
+      {{ csrf_field }}
+      {{back()}}
+      <div id="app">
+        <div>
+          <div>
+            <label class="block text-gray-700 text-sm font-bold mb-2 mt-2 ml-3" for="service_type">Select A Service</label>
+            <dropdown :list="options.services" :scheduled="service" unique='service_type' @picked-value='updateService'>{{service}}</dropdown>
+          </div>
+            <div class="">
+              <label class="block text-gray-700 text-sm font-bold mb-2 mt-2 ml-3" for="name">Name</label>
+              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" 
+                            id="name" type="text" name="name" value="{{firstname + ' ' + lastname}}">
+            </div>
+            <div class="">
+              <label class="block text-gray-700 text-sm font-bold mb-2 mt-2 ml-3" for="name">Address</label>
+              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" 
+                            id="address" type="text" name="address" value="{{address}}">
+            </div>
+            <div >
+            <div class="mt-3 flex justify-between text-center">
+              <div class="mr-3"></div>
+                <div class="mr-3">
+                  <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="service_month">Service Month</label>  
+                  <dropdown :list='options.months' :height='options.height' :scheduled='month' unique='service_month' @picked-value='updateMonth'></dropdown>
+                </div>
+              <div class="mr-3">
+                <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="service_day">Service Day</label>
+                <dropdown :list='options.days'  :height='options.height' :scheduled="day" unique='service_day' @picked-value='updateDay'></dropdown>
+              </div> 
+              <div class="mr-3">
+                <label  class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="service_time">Service Time</label>
+                <dropdown :list="options.times"  :height='options.height' :scheduled="time" unique='service_time' @picked-value='updateTime'></dropdown>
+              </div>
+              <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="day_time">Time of Day</label>
+                <dropdown :list='options.daytime' :scheduled="daytime" unique='day_time' @picked-value='updateDaytime'></dropdown>
+              </div>  
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-between">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-3 rounded focus:outline-none focus:shadow-outline" type="sumbit" name="schedule">Schedule</button>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-3 rounded focus:outline-none focus:shadow-outline" type="reset" name="clear_form">Reschedule</button>
+      </div>
+    </form>
+  </div>
+</div>
+{%endblock%}

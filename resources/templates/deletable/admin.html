@@ -1,0 +1,25 @@
+{%extends "/dashboard/home_dashboard.html"%}
+
+{%block content%}
+<div class="mt-8">
+  <div class="mb-3">
+    {% if session().has('success') %}
+    <div class="alert alert-success">
+        {{ session().get('success') }}
+    </div>
+    {% endif %}
+  </div>
+  <div class="mb-5 text-center text-white text-3xl font-bold">
+    <h1>Administrator</h1>
+  </div>
+  <div class="flex-col text-center">
+    <ol class="text-xl mb-6">
+      <a href="{{route ('admin_account_setup')}}"><li class="mb-4 font-bold text-gray-800 hover:text-white">Administrator Account Setup</li></a>
+      <!-- <a href="{{route ('account_update')}}"><li class='mb-4 font-bold text-gray-800 hover:text-white'>Administrator Login</li></a>
+      <a href="{{route ('password')}}"><li class="mb-4 font-bold text-gray-800 hover:text-white">Administrator Information</li></a> -->
+      <!-- <a href="#"><li class="mb-4 font-bold text-gray-800 hover:text-white">Set Up/Update Billing Information</li></a>
+      <a href="{{route ('pool_cleaning')}}" class="font-bold text-gray-800 hover:text-white"><li>Pool Cleaning History</li></a> -->
+    </ol>
+  </div>
+</div>
+{%endblock%}

@@ -1,0 +1,48 @@
+{%extends "/dashboard/admin_dashboard.html"%}
+
+{%block content%}
+<div class="flex-col">
+  <div>
+    <h2 class="mb-5 text-center text-white text-3xl font-bold">Pool Technicians</h2>
+  </div>
+  <div class="flex justify-center">
+    <table class="min-w-full">
+       <thead>
+           <tr>
+               <th
+                   class="px-5 py-3 border-b-2 border-gray-400 bg-gray-100 text-left text-lg font-semibold text-gray-700 uppercase text-center tracking-wider">
+                   Employee ID
+               </th>
+               <th
+                   class="px-5 py-3 border-b-2 border-gray-400 bg-gray-100 text-left text-lg font-semibold text-gray-700 uppercase text-center tracking-wider">
+                   Pool Technician Name
+               </th>
+               <th
+                   class="px-5 py-3 border-b-2 border-gray-400 bg-gray-100 text-left text-lg font-semibold text-gray-700 uppercase text-center tracking-wider">
+                   Pool Technician Cell Phone
+               </th>
+               <th
+                   class="px-5 py-3 border-b-2 border-gray-400 bg-gray-100 text-left text-lg font-semibold text-gray-700 uppercase text-center tracking-wider">
+                   Pool Technician Address
+               </th>
+               <th
+                   class="px-5 py-3 border-b-2 border-gray-400 bg-gray-100 text-left text-lg font-semibold text-gray-700 uppercase text-center tracking-wider">
+                   Pool Technician Email
+               </th>
+           </tr>
+       </thead>
+       <tbody>
+         {% for tech in techs %}
+         <tr class="bg-gray-100 border-b-2 border-gray-400">
+           <td class='px-3 py-5 font-semibold text-gray-600 text-base text-center'>{{tech.id}}</td>
+           <td class='px-3 py-5 font-semibold text-gray-600 text-center text-center'>{{tech.pool_tech_name}}</td>
+           <td class='px-3 py-5 font-semibold text-gray-600 text-center text-center'>{{tech.pool_tech_cell_phone}}</td>
+           <td class='px-3 py-5 font-semibold text-gray-600 text-center text-center'>{{tech.pool_tech_address}}</td>
+           <td class='px-3 py-5 font-semibold text-gray-600 text-center text-center'>{{tech.pool_tech_email}}</td>
+        </tr>
+         {%endfor%}
+       </tbody>
+    </table>
+  </div>
+</div>
+{%endblock%}

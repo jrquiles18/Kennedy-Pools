@@ -1,0 +1,52 @@
+{%extends '/home.html'%}
+
+{%block content%}
+<div class="flex-col justify-center">
+  <div class="mt-4 mb-5 text-center text-white text-3xl font-bold">
+    <h1>Contact Us</h1>
+  </div>
+  <div class="text-center text-gray-700 text-lg font-bold mb-2">
+    {% if bag().any() %}
+        {% for error in bag().messages() %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endfor %}
+    {% endif %}
+  </div>
+  <!-- {% if session().has('success') %}
+  <div class="alert alert-success">
+      {{ session().get('success') }}
+  </div>
+  {% endif %} -->
+  <div class="flex justify-center">
+    <form class="" action="" method="POST">
+      {{csrf_field}}
+      {{back()}}
+      <div class="">
+        <label class="block text-gray-700 text-lg font-bold mb-2">Subject:</label>
+        <!-- <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="subject" type="text" name="subject">
+      </div> -->
+      <!-- <div class="py-2 bg-gray-400 shadow- rounded"> -->
+        <select class = 'w-full h-12 text-gray-800 shadow-xl text-gray-700 font-bold' name="subject" required>
+          <option value="">Select A Subject</option>
+          <option value="Great Service!">Great Service!</option>
+          <option value="Constructive Criticism">Constructive Criticism</option>
+          <option value="Disappointed Customer">Disappointed Customer</option>
+          <!-- <li class='block px-4 py-2 text-gray-800 hover:bg-white'>Great Service!</li>
+          <li class='block px-4 py-2 text-gray-800 hover:bg-white'>Constructive Criticism</li>
+          <li class='block px-4 py-2 text-gray-800 hover:bg-white'>Disappointed Customer</li> -->
+        </select>
+      </div>
+      <div class="mt-2">
+        <label for="textarea" class="block text-gray-700 text-lg font-bold mb-2">Message:</label>
+        <textarea id="textarea" class="shadow-xl" name="contact" rows="8" cols="80"></textarea>
+      </div>
+      <div class="flex justify-between">
+        <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" value='reset' name="contact-button">Submit</button>
+        <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="reset" value='reset' name="clear-form">Clear Form</button>
+      </div>
+    </form>
+  </div>
+</div>
+{%endblock%}

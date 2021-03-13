@@ -1,0 +1,58 @@
+{%extends "/dashboard/home_dashboard.html"%}
+
+{%block content%}
+<div class="flex justify-center">
+  <div class="mt-8 w-full max-w-lg">
+    <div class="mb-5 text-center text-white text-3xl font-bold">
+      <h1>Pool Technician Account Registration</h1>
+    </div>
+    <div class="">
+      {% if bag().any() %}
+          {% for error in bag().messages() %}
+              <div class="alert alert-danger" role="alert">
+                  {{ error }}
+              </div>
+          {% endfor %}
+      {% endif %}
+    </div>
+    {% if session().has('success') %}
+    <div class="alert alert-success">
+        {{ session().get('success') }}
+    </div>
+    {%endif%}
+    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" action="" method="POST">
+      {{ csrf_field }}
+      {{back()}}
+      <div class="">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="pool_tech_name">Pool Technician Name</label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="pool_tech_name" type="text" name="pool_tech_name" value="{{old ('admin_name')}}">
+      </div>
+      <div class="">
+        <label class="block text-gray-700 text-sm font-bold mb-2 mt-4" for="pool_tech_cell_phone">Pool Technician Cell Phone</label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="pool_tech_cell_phone" type="text" name="pool_tech_cell_phone" value="{{old ('admin_cell_phone')}}">
+      </div>
+      <div class="">
+        <label class="block text-gray-700 text-sm font-bold mb-2 mt-4" for="pool_tech_address">Pool Technician Address</label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="pool_tech_address" type="text" name="pool_tech_address" placeholder = "Street City State Zip"
+                      value="{{old ('admin_address')}}">
+      </div>
+      <div class="">
+        <label class="block text-gray-700 text-sm font-bold mb-2 mt-4" for="pool_tech_email">Pool Technician Email</label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="pool_tech_email" type="email" name="pool_tech_email" value="{{old ('admin_email')}}">
+      </div>
+      <div class="">
+        <label class="block text-gray-700 text-sm font-bold mb-2 mt-4" for="pool_tech_username">Pool Technician Username</label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="pool_tech_username" type="text" name="pool_tech_username" value="{{old ('admin_username')}}">
+      </div>
+      <div class="">
+        <label class="block text-gray-700 text-sm font-bold mb-2 mt-4" for="pool_tech_password">Pool Technician Password</label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="pool_tech_password" type="password" name="pool_tech_password">
+      </div>
+      <div class="flex items-center justify-between">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="sumbit" name="login">Register</button>
+        <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="reset" value='reset' name="clear-form">Clear Form</button>
+      </div>
+    </form>
+  </div>
+</div>
+{%endblock%}

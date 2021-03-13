@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ config('application.name') }}</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+  </head>
+  <body class = 'h-full bg-gray-400 flex flex-col h-screen'>
+     <nav class = 'bg-gray-800 flex justify-between items-center cursor-pointer p-2'>
+       <!-- <div class="ml-6 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline rounded-full overflow-hidden">
+         <h1><a href="{{route ('home')}}">KP&S</a></h1>
+       </div> -->
+       <div class="ml-8">
+        <div class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold rounded px-1 py-3 h-12 w-12 rounded-full focus:outline-none focus:shadow-outline">
+          <a href = "{{route ('home_dashboard')}}" >KP&S</a>
+        </div>
+       </div>
+       
+       <div class="flex">
+         <div class="mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+           <a href = "{{route ('admin_login')}}" >Admin</a>
+         </div>
+         <div class="mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+           <a href = "{{route ('pool_tech_login')}}"class="">Pool Tech</a>
+         </div>
+         <!-- <div class="mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+           <a href="#" class="">Schedule</a>
+         </div>
+         <div class="mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+           <a href="#" class="">Customers</a>
+         </div> -->
+         <!-- <div class="mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+           <a href="{{route ('home_logout')}}"><button type="button" name="button"></button>Logout</a>
+
+         </div> -->
+         <!-- <div class="mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+           <form class="" action="" method="post">
+             {{ csrf_field }}
+               <button class=""  type="submit" name="logout">Logout</button>
+           </form>
+         </div> -->
+       </div>
+     </nav>
+     <main class=''>
+       {%block content%}
+       <h1 class='text-center'>This is the Dashboard Home Page!!</h1>
+       <div class="flex justify-center">
+         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <a href = "{{route ('admin_account_setup')}}"><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold ml-1 py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" name="button">Create Administrator Account</button></a>
+           <a href="{{route ('pool_tech_account_setup')}}"><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold ml-1 py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" name="button">Create Pool Tech Account</button></a>
+         </div>
+       </div>
+       {%endblock%}
+     </main>
+     <!-- <footer class="mt-6 flex justify-around font-bold text-gray-800">
+       <div class="">
+         <p>Email: cturey@gmail.com</p>
+       </div>
+       <div class="">
+         <p>Kennedy Pools & Supplies &#169; 2000</p>
+       </div>
+       <div class="">
+         <p>Phone: (321) 123-4567</p>
+       </div>
+     </footer> -->
+  </body>
+</html>
