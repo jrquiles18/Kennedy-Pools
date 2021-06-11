@@ -18,7 +18,7 @@ class HomeController(Controller):
         """
         self.request = request
 
-    def show(self, view: View):
+    def show(self, view: View, request: Request):
         return view.render('home')
 
     def logout(self, request: Request, auth: Auth):

@@ -1,7 +1,5 @@
 <template>
 <div class='flex justify-center mt-3'>
-    <!-- <span class="rounded-full h-3 w-3 flex items-center justify-center bg-gray-800 inline-block mr-2 cursor-pointer hover:bg-gray-600"></span>
-    <span class="rounded-full h-3 w-3 flex items-center justify-center bg-gray-800 inline-block mr-2 cursor-pointer hover:bg-gray-600"></span> -->
     <button @click="currentSlide(0)" :class="{'bg-red-700': num === 0, 'bg-gray-800': num !== 0}" 
         class="rounded-full h-3 w-3 flex items-center justify-center bg-gray-800 inline-block mr-2 cursor-pointer hover:bg-gray-200 border-none focus:outline-none"></button>
     <button @click="currentSlide(1)" :class="{'bg-red-700': num === 1, 'bg-gray-800': num !== 1}" 
@@ -15,6 +13,8 @@
 </template>
 
 <script>
+   
+    // import { EventBus } from '../bus'
     export default{
         props: {
             slideImg: Array,
@@ -23,16 +23,17 @@
         },
 
         data(){
+             
             return {
-               
+              
             }
         }, 
 
         methods:{
             currentSlide(index){
                 this.$emit('change', index)
-            }
-        }
+            },
+        },
     }
 </script>
 

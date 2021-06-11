@@ -5,9 +5,12 @@ from masonite.view import View
 from masonite.controllers import Controller
 from masonite.auth import Auth
 from masonite.validation import Validator
+from masonite import Mail
 
 from app.Schedule import Schedule
 from app.User import User
+from app.Schedule import Schedule
+from datetime import datetime
 
 class ScheduleController(Controller):
     """ScheduleController Controller Class."""
@@ -21,61 +24,85 @@ class ScheduleController(Controller):
         self.request = request
 
     def show(self, view: View, request: Request):
+        
         user=request.user()
-
-        # if not user:
-        #     return request.redirect('/login')
-        # else:
-            # user=request.user()
         firstname = user.firstname
         lastname = user.lastname
         address = user.address
-            
-        return view.render('schedule', {"address": address, "firstname": firstname, "lastname": lastname})
+        service_id = request.param('slug')
 
-    def schedule(self, request: Request, validate: Validator):
+        return view.render('schedule', {"address": address, "firstname": firstname, "lastname": lastname, "service_id": service_id}) 
+
+    def schedule(self, view: View, request: Request, validate: Validator, mail: Mail):
         user = User.all()
         customer = request.user()
-
+        
         name = request.input('name')
         address = request.input('address')
-
+        
+        schedule_date_info =  request.input('date')
+        path = request.path
+    
          #checking that all required fields are entered and no errors are found.
         errors = request.validate(
-            validate.required(['service_type','name', 'address', 'service_month', 
-                                'service_day', 'service_time', 'day_time']))
-
+            validate.required(['service_type', 'name', 'address']))
+            
         if errors:
             return request.back().with_errors(errors)
 
-        schedule_id = user.where('id', customer.id).first()
+        if not schedule_date_info[0] or not schedule_date_info[1]:
+            request.session.flash('success', "The service date and service time is required.")
+            return request.back()
 
+        schedule_id = user.where('id', customer.id).first()
+        
         Schedule.insert({
             'schedule_id': schedule_id.id,
             'service': request.input('service_type'),
-            'month': request.input('service_month'),
-            'day': request.input('service_day'),
-            'time': request.input('service_time'),
-            'daytime': request.input('day_time')
+            'service_date': schedule_date_info[0],
+            'service_time': schedule_date_info[1], 
+            'customer_name': request.input('name')
         })
 
-        am_times = ['8:00', '8:30', '9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '12:00']
-        pm_times = ['12:00', '12:30', '1:00', '1:30', '2:00', '2:30', '3:00', '3:30', '4:00', '4:30', '6:00', '6:30']
+        #getting the schedules table data
+        customer_schedule = Schedule.get().last()
+        
+         #sends email with pool appointment schedule details
+        mail.subject('Pool Appointment Confirmation').to(customer.email).template('appt_confirm', {'service': customer_schedule.service, 
+                                'service_date':customer_schedule.service_date, 'service_time':customer_schedule.service_time}).send()
+        
+        request.session.flash('success', 'Your appointment has been successfully scheduled!  A confirmation email has been sent.')
+        
+        return request.redirect('/') 
 
-        if request.input('service_time') in pm_times and request.input('day_time') == 'AM':
-            request.session.flash('success', "No morning appointments available for this time.")
+    def update(self, view: View, request: Request, validate: Validator, mail: Mail):
+        schedule_date_info =  request.input('date')
+        customer = request.user()
+
+        #checking that all required fields are entered and no errors are found.
+        errors = request.validate(
+            validate.required(['service_type', 'name', 'address']))
+            
+        if errors:
+            return request.back().with_errors(errors)
+
+        if not schedule_date_info[0] or not schedule_date_info[1]:
+            request.session.flash('success', "The service date and service time is required.")
             return request.back()
-        
-        elif request.input('service_time') in am_times and request.input('day_time') == 'PM':
-            request.session.flash('success', "No evening appointments available for this time.")
 
-        else:
-            request.session.flash('success', 'Your appointment has been successfully scheduled!')
-        
+        update_schedule = Schedule.where('id', '=', request.param('slug')).update(service=request.input('service_type'), 
+            service_date=schedule_date_info[0], service_time=schedule_date_info[1])
+
+        #need to changed this variable to current new updated info to send in email confirmation.
+        customer_schedule = Schedule.get().last()
+
+        #sends email with pool appointment schedule details
+        # mail.subject('Pool Appointment Update Confirmation').to(customer.email).template('appt_confirm', {'service': customer_schedule.service, 
+        #                         'service_date':customer_schedule.service_date, 'service_time':customer_schedule.service_time}).send()
+        request.session.flash('success', 'Your appointment has been updated!  A confirmation email has been sent.')
+
         return request.redirect('/')
-    
         
-
         
 
         

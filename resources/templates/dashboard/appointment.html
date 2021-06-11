@@ -1,0 +1,43 @@
+{%extends "/dashboard/admin_dashboard.html"%}
+
+{%block content%}
+    <div class="mt-4">
+        <h2 class="mb-5 text-center text-white text-3xl font-bold">Appointment Setup</h2>
+    </div>
+    <div class="relative flex justify-center">
+        <div class="flex-col w-4/12 relative mt-7">
+            <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" action="" method="POST">
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-1" for="email">Pool Technician</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >           
+                </div>
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mt-3 mb-1" for="email">Customer Name</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >   
+                </div>
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mt-3 mb-1" for="email">Customer Address</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >   
+                </div>
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mt-3 mb-1" for="email">Pool Service Requested</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >   
+                </div>
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mt-3 mb-1" for="email">Service Date Requested</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >   
+                </div>
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mt-3 mb-1" for="email">Service Time Requested</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >   
+                </div>
+                <div class="flex justify-around">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-6 py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="sumbit" name="schedule">Schedule Tech</button>
+                    <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 mt-6 rounded focus:outline-none focus:shadow-outline" type="reset"  name="clear_form">Clear</button>
+                </div>
+            </form>
+
+        </div>
+        
+    </div>
+{%endblock%}

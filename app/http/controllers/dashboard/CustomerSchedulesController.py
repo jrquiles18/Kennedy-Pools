@@ -20,5 +20,5 @@ class CustomerSchedulesController(Controller):
 
     def show(self, view: View, request: Request):
         customer_schedules = Schedule.all()
-
+        
         return view.render('dashboard/schedules', {'customer_schedules': customer_schedules})

@@ -1,32 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="h-full">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" name="csrf-token" content="{{ csrf_token }}">
     <title>{{ config('application.name') }}</title>
     <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
   </head>
   <body class = 'h-full bg-gray-400 flex flex-col h-screen' >
     <nav class = 'bg-gray-800 flex justify-between items-center cursor-pointer p-2'>
-      <div class="ml-6">
+      <div class="ml-6 flex justify-between items-center">
         <div class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold rounded px-1 py-3 h-12 w-12 rounded-full focus:outline-none focus:shadow-outline">
           <a href = "{{route ('home')}}" >KP&S</a>
         </div>
+        <div class="ml-3 text-white">Kennedy Pools & Supplies</div>
       </div>
       <div class="flex">
         {%if auth() %}
-          <!-- <div class="mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            <a href="{{route ('schedule')}}" class="">Schedule</a>
-          </div> -->
+          
           <div class="mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline">
             <a href="{{route ('account')}}" class="">My Account</a>
           </div>
-          <!-- <div class="mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline content-center">
-            <a href="{{route ('home_dashboard')}}">Dashboard</a>
-          </div>  -->
           <div class="mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline">
             <form class="" action="{{route ('home')}}" method="post">
               {{ csrf_field }}
-                <button class="font-bold"  type="submit" name="logout">Logout</button>
+                <button id="button" class="font-bold"  type="submit" name="logout">Logout</button>
             </form>
           </div>
         {%else%}
@@ -35,7 +32,7 @@
         </div>
         
         <div class="mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-          <a href = "{{route ('register')}}"class="">Register</a>
+          <a href = "{{route ('register')}}"class="">New Account</a>
         </div>
       </div>
       {%endif%}
@@ -48,10 +45,11 @@
         <h1 class='mt-10 text-center text-4xl'>Kennedy Pools & Supplies</h1>
       </div>
        {% if session().has('success') %}
-       <div class="text-center m-5 text-2xl">
+       <div id='flash' class="text-center m-5 text-2xl">
            {{ session().get('success') }}
        </div>
        {% endif %}
+       
          <div id="carousel">
           <carousel-button @next="next" @previous="prev"> 
             <carousel :img='images[0 + i]'>
@@ -60,7 +58,7 @@
         </div>
        {%endblock%}
       </main>
-     <footer class="mt-8 flex justify-around font-bold text-gray-800">
+     <footer class="mt-8 p-4 flex justify-around font-bold text-white bg-gray-800">
        <div  class="">
          <p>Email: cturey@gmail.com</p>
        </div>
@@ -68,9 +66,20 @@
          <p>Kennedy Pools & Supplies &#169; 2000</p>
        </div>
        <div class="">
-         <p>Phone: (321) 123-4567</p>
+         <p>Phone: (321) 536-9280</p>
+       </div>
+       <div>
+        <a href='https://facebook.com' class='text-2xl'><i class="fab fa-facebook"></i></a>
+        <a href='https://instagram.com' class='text-2xl ml-3'><i class="fab fa-instagram"></i></a>
+        <a href='https://twitter.com' class='text-2xl ml-3'><i class="fab fa-twitter"></i></i></a>
        </div>
      </footer>
-     <script src="js/app.js"></script>
+     <script src="/js/app.js"></script>
+    
+     <!-- scripts needed for jquery -->
+     
+     <script src="/static/jquery-3.6.0.js"></script>
+     <script src="/static/app.js"></script>
+     
   </body>
 </html>

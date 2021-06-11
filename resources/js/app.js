@@ -46,89 +46,146 @@
 
 //     components: { Notification }
 // })
-// document.getElementById('schedule').style.backgroundColor = "blue";
+
 import Vue from 'vue';
 
 import Dropdown from './components/DropDown.vue'
 import Carousel from './components/Carousel.vue'
 import CarouselButton from './components/CarouselButton.vue'
 import CarouselIndicator from './components/CarouselIndicator.vue'
+import Popup from './components/Popup.vue'
+import Update from './components/Update.vue'
+import Delete from './components/Delete.vue'
+import Cancel from './components/Cancel.vue'
+import DeletePopup from './components/DeletePopup.vue'
+import CheckAll from './components/CheckAll.vue'
+
+import DatePicker from 'vue2-datepicker';
+
+import 'vue2-datepicker/index.css';
+import moment from 'moment';
+import { EventBus } from './bus.js';
+
+import {store} from './store'
+import { mapGetters } from 'vuex';
 
 new Vue({
-        el:  '#app',
-    
-        components: { Dropdown, 
+    el:  '#app',
+
+    store,
+
+    components: { Dropdown, DatePicker, Update, Delete, Cancel},
+
+    delimiters: ['[[',']]'], 
+
+    // code for the dropdown component
+    data() {
+        return {
+            ServiceType: '',
+            // service_scheduled: '',
+            // service: 'Pool Cleaning', 
+            month: 'January',
+            day: '1', 
+            time: '8:00', 
+            daytime: 'AM',
         
-        },
+            options: {
+                services: ['Pool Cleaning', 'Pool Repair', 'Pool Installation Estimate'],
 
-        delimiters: ['[[',']]'], 
+                months: ['January', 'February', 'March', 'April', 'May', 'June',
+                        'July', 'August', 'September', 'October', 'November', 'December'],
 
-        data() {
-            return {
-                // value: 'hello', 
-                service: 'Pool Cleaning', 
-                month: 'January',
-                day: '1', 
-                time: '8:00', 
-                daytime: 'AM',
-                // message:  'Hello!!!!',
-    
-                options: {
-                    services: ['Pool Cleaning', 'Pool Repair', 'Pool Installation Estimate'],
+                days: ['1', '2', '3', '4', '5', '6' , '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', 
+                    '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
+                
+                times: ['8:00', '8:30', '9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30',
+                        '1:00', '1:30', '2:00', '2:30', '3:00', '3:30', '4:00', '4:30', '6:00', '6:30'], 
 
-                    months: ['January', 'February', 'March', 'April', 'May', 'June',
-                            'July', 'August', 'September', 'October', 'November', 'December'],
+                daytime: ['AM', 'PM'],
 
-                    days: ['1', '2', '3', '4', '5', '6' , '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', 
-                        '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
-                    
-                    times: ['8:00', '8:30', '9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30',
-                            '1:00', '1:30', '2:00', '2:30', '3:00', '3:30', '4:00', '4:30', '6:00', '6:30'], 
+                id: ['service_type', 'service_month', "service_day", "service_time", "day_time"],
 
-                    daytime: ['AM', 'PM'],
+                height: '28.5vh',
 
-                    id: ['service_type', 'service_month', "service_day", "service_time", "day_time"],
-
-                    height: '28.5vh',
-
-                    overflow: 'scroll',
-                }
-            }     
-        }, 
-
-        methods:{
-            updateService(value){
-                this.service = value
-            }, 
-
-            updateMonth(value){
-                this.month = value
+                overflow: 'scroll',
             },
 
-            updateDay(value){
-                this.day = value 
-            }, 
-
-            updateTime(value){
-                this.time = value
-            }, 
-
-            updateDaytime(value){
-                this.daytime = value
-                const timesAM = ['8:00', '8:30', '9:00', '9:30', '10:00', '10:30', '11:00', '11:30']
-                const timesPM = ['12:00', '12:30', '1:00', '1:30', '2:00', '2:30', '3:00', '3:30', '4:00', '4:30', '6:00', '6:30']
-                if (timesAM.includes(this.time) && this.daytime === 'PM'){
-                    alert('No evening appointments available for this time.')
-                    this.daytime = 'AM'
-                    
-                } else if (timesPM.includes(this.time) && this.daytime === 'AM') {
-                    alert('No morning appointment available for this time')
-                    this.daytime = 'PM'
-                }
-            }
+            date: ' ',
+            time: ' ',
             
-        } 
-    })
+            momentFormat: {
+                //[optional] Date to String
+                stringify: (date) => {
+                    return date ? moment(date).format('LL') : ''
+                },
+            }
+        }    
+    }, 
+
+    methods:{
+        updateService(value){
+            this.ServiceType= value
+            this.service = value
+        }, 
+
+        notAfterToday(date) {
+            const today = new Date();
+            return (date.getTime() + 86400000) <= today.getTime();
+            },
+
+        notDuringThisTime(date) {
+            const pickedDate = this.date  // returns day picked
+            const pickedTime = this.time  // returns the time picked
+            
+
+            const timeAM = new Date(pickedDate.getFullYear(), pickedDate.getMonth(), pickedDate.getDate(), 9)  // establishes the AM time to compare picked time with.
+            const timePM = new Date(pickedDate.getFullYear(), pickedDate.getMonth(), pickedDate.getDate(), 18) // establishes the PM time to compare picked time with.
+
+            const testDate = new Date(pickedDate.getFullYear(), pickedDate.getMonth(), pickedDate.getDate(), pickedTime.getHours(), pickedTime.getMinutes()).getTime()
+            
+            if (testDate < timeAM.getTime()) {
+                this.time = ' '
+                EventBus.$emit('error-message-am', true)
+            }
+
+            if (testDate > timePM.getTime()) {
+                this.time = ' '
+                EventBus.$emit('error-message-pm', true)
+            }  
+        },
+
+        updateSchedule(){
+            if (this.time === ' ' && this.date === ' '){
+                EventBus.$emit('update-schedule', false)
+            }
+            else {
+                EventBus.$emit('update-schedule', true)
+            }
+        }, 
+
+        valueUpdate(service){
+            this.$store.commit('setServiceType', service) }
+        },
+
+        startLoader(){
+           
+        },
+
+    computed: {
+        ...mapGetters([
+            'getServiceType'
+        ]), 
+
+        service: {
+            get() {
+                return this.$store.state.service;
+            },
+            set(service) {
+                this.$store.commit('setServiceType', service);
+            }
+        },
+    }
+})
     
 new Vue ({
     el: '#carousel',
@@ -159,19 +216,25 @@ new Vue ({
         next(){
             if (this.i == 0 || this.i <= this.images.length){
                 this.i = this.i + 1    
+                this.selected = this.i
+                
             }
 
             if (this.i == this.images.length){
                 this.i = 0
+                this.selected = this.i
+                
             }
         },
 
         prev(){
             if(this.i == 0) {
                 this.i = this.images.length - 1
+                this.selected = this.i
             }
                 else if(this.i > 0){
                 this.i = this.i - 1
+                this.selected = this.i
             }
         },
 
@@ -183,8 +246,51 @@ new Vue ({
     } 
 })
 
+new Vue({
+    el: '#popup',
 
-        
+    components: {
+        Popup
+    }, 
+
+    data() {
+        return {
+            
+           
+        }
+    }
+})
+
+new Vue({
+    el: '#warning',
+
+    components: {
+        DeletePopup
+    }, 
+
+    data() {
+        return {
+            
+           
+        }
+    }
+})
+
+new Vue({
+    el: '#checkbox',
+
+    components: {
+        CheckAll
+    }, 
+
+    data() {
+        return {
+            
+           
+        }
+    }
+})
+ 
 
 
 

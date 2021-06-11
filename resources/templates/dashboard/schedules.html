@@ -13,52 +13,52 @@
                       class="px-5 py-3 border-b-2 border-gray-400 bg-gray-100 text-left text-lg font-semibold text-gray-700 uppercase text-center tracking-wider">
                       ID
                   </th>
-                  <th
+                  <!-- <th
                       class="px-5 py-3 border-b-2 border-gray-400 bg-gray-100 text-left text-lg font-semibold text-gray-700 uppercase text-center tracking-wider">
                         Schedule_ID
+                  </th> -->
+                  <th
+                      class="px-5 py-3 border-b-2 border-gray-400 bg-gray-100 text-left text-lg font-semibold text-gray-700 uppercase text-center tracking-wider">
+                        Customer Name
                   </th>
                   <th
                       class="px-5 py-3 border-b-2 border-gray-400 bg-gray-100 text-left text-lg font-semibold text-gray-700 uppercase text-center tracking-wider">
-                        Name
+                        Customer Address
                   </th>
                   <th
                       class="px-5 py-3 border-b-2 border-gray-400 bg-gray-100 text-left text-lg font-semibold text-gray-700 uppercase text-center tracking-wider">
-                        Address
+                        Type of Service
                   </th>
                   <th
                       class="px-5 py-3 border-b-2 border-gray-400 bg-gray-100 text-left text-lg font-semibold text-gray-700 uppercase text-center tracking-wider">
-                        Service
+                        Service Date
                   </th>
                   <th
                       class="px-5 py-3 border-b-2 border-gray-400 bg-gray-100 text-left text-lg font-semibold text-gray-700 uppercase text-center tracking-wider">
-                        Month
+                        Service Time
                   </th>
                   <th
                       class="px-5 py-3 border-b-2 border-gray-400 bg-gray-100 text-left text-lg font-semibold text-gray-700 uppercase text-center tracking-wider">
-                        Day
+                        Pool Technician
                   </th>
-                  <th
-                      class="px-5 py-3 border-b-2 border-gray-400 bg-gray-100 text-left text-lg font-semibold text-gray-700 uppercase text-center tracking-wider">
-                        Time
-                  </th>
-                  <th
+                  <!-- <th
                       class="px-5 py-3 border-b-2 border-gray-400 bg-gray-100 text-left text-lg font-semibold text-gray-700 uppercase text-center tracking-wider">
                         Daytime
-                  </th>
+                  </th> -->
                 </tr>
             </thead>
             <tbody>
                 {%for schedule in customer_schedules%}
                     <tr class="bg-gray-100 border-b-2 border-gray-400">
                         <td class='px-3 py-5 font-semibold text-gray-600 text-base text-center'>{{schedule.id}}</td>
-                        <td class='px-3 py-5 font-semibold text-gray-600 text-base text-center'>{{schedule.schedule_id}}</td>
-                        <td class='px-3 py-5 font-semibold text-gray-600 text-base text-center'>{{schedule.schedule.firstname + ' ' + schedule.schedule.lastname}}</td>
-                        <td class='px-3 py-5 font-semibold text-gray-600 text-base text-center'>{{schedule.schedule.address}}</td>
+                        <!-- <td class='px-3 py-5 font-semibold text-gray-600 text-base text-center'>{{schedule.schedule_id}}</td> -->
+                        <td class='px-3 py-5 font-semibold text-gray-600 text-base text-center'>{{schedule.customer.firstname + ' ' + schedule.customer.lastname}}</td>
+                        <td class='px-3 py-5 font-semibold text-gray-600 text-base text-center'>{{schedule.customer.address}}</td>
                         <td class='px-3 py-5 font-semibold text-gray-600 text-base text-center'>{{schedule.service}}</td>
-                        <td class='px-3 py-5 font-semibold text-gray-600 text-base text-center'>{{schedule.month}}</td>
-                        <td class='px-3 py-5 font-semibold text-gray-600 text-base text-center'>{{schedule.day}}</td>
-                        <td class='px-3 py-5 font-semibold text-gray-600 text-base text-center'>{{schedule.time}}</td>
-                        <td class='px-3 py-5 font-semibold text-gray-600 text-base text-center'>{{schedule.daytime}}</td>
+                        <td class='px-3 py-5 font-semibold text-gray-600 text-base text-center'>{{schedule.service_date}}</td>
+                        <td class='px-3 py-5 font-semibold text-gray-600 text-base text-center'>{{schedule.service_time}}</td>
+                        <!-- <td class='px-3 py-5 font-semibold text-gray-600 text-base text-center'>{{schedule.time}}</td>
+                        <td class='px-3 py-5 font-semibold text-gray-600 text-base text-center'>{{schedule.daytime}}</td> -->
                     </tr>
                 {%endfor%}
             </tbody>

@@ -11,3 +11,9 @@ Supported: 'memory', 'cookie'
 """
 
 DRIVER = env('SESSION_DRIVER', 'cookie')
+
+DRIVERS = {
+    'cookie': {
+        'flash_expires': '1 minute' # This is now setting the flash cookie time. Can set this to 1 hour if you want.
+    }
+}

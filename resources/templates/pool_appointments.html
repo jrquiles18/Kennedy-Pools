@@ -1,0 +1,70 @@
+{%extends '/home.html'%}
+
+{%block content%}
+
+<div class="flex-col">
+  <div>
+    <h2 class="mb-5 text-center text-white text-3xl font-bold">Pool Appointments</h2>
+  </div>
+  <div class="flex justify-center">
+    <table id="table" class="min-w-full">
+        <div class="absolute flex justify-center">
+            <div id="warning">
+                <delete-popup></delete-popup>
+            </div>
+        </div>
+       <thead>
+           <tr >
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase text-center tracking-wider">
+                    Service Id
+                </th>
+               <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase text-center tracking-wider">
+                   Type Of Service
+               </th>
+               <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase text-center tracking-wider">
+                   Service Date
+               </th>
+               <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase text-center tracking-wider">
+                   Service Time
+               </th>
+               <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase text-center tracking-wider">
+                   Service State
+               </th>
+               <th
+                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase text-center tracking-wider">
+                   <div id="checkbox">
+                       <check-all></check-all>
+                   </div>
+               </th>
+           </tr>
+       </thead>
+       <tbody id='app' class="text-center">
+           {%for data in customer_schedules%}
+           <tr class="border-b-2 border-gray-200 bg-gray-100">
+               <td class="px-5 py-3 ">
+                    {{data.id}}
+               </td>
+               <td class="px-5 py-3 ">
+                    {{data.service}}
+               </td>
+               <td class="px-5 py-3 ">
+                    {{data.service_date}}
+                </td>
+                <td class="px-5 py-3 ">
+                    {{data.service_time}}
+               </td>
+               <td class="px-5 py-3  text-black">
+                    {{data.service_state}}
+                </td>
+               <td class="px-5 py-3 ">
+                   <update @update-value="valueUpdate"></update>
+                   <delete></delete>    
+                   <cancel></cancel>
+               </td>
+           </tr>
+           {%endfor%}
+       </tbody>
+    </table>
+  </div>
+</div>
+{%endblock%}

@@ -3,6 +3,7 @@
 from masonite import env
 
 from app.User import User
+from app.Schedule import Schedule
 from app.Administrator import Administrator
 
 """Authentication Model
@@ -25,12 +26,17 @@ AUTH = {
         'web': {
             'driver': 'cookie',
             'model': User,
-            'drivers': { #'cookie', 'jwt'
-                'jwt': {
-                    'reauthentication': True,
-                    'lifetime': '5 minutes'
-                }
+            'drivers': {  #'cookie', 'jwt'
+                # 'jwt': {
+                #     'reauthentication': True,
+                #     'lifetime': '5 minutes'
+                # }
             }
+        },
+        'api': {
+            'driver': 'jwt',
+            'model': Schedule,
+        
         },
     }
 }
