@@ -49,18 +49,20 @@
 
 import Vue from 'vue';
 
+import DatePicker from 'vue2-datepicker';
+import Delete from './components/Delete.vue'
 import Dropdown from './components/DropDown.vue'
+import Dropdownlist from './components/DropDownList.vue'
+import DeletePopup from './components/DeletePopup.vue'
+import CheckAll from './components/CheckAll.vue'
+import Cancel from './components/Cancel.vue'
 import Carousel from './components/Carousel.vue'
 import CarouselButton from './components/CarouselButton.vue'
 import CarouselIndicator from './components/CarouselIndicator.vue'
 import Popup from './components/Popup.vue'
 import Update from './components/Update.vue'
-import Delete from './components/Delete.vue'
-import Cancel from './components/Cancel.vue'
-import DeletePopup from './components/DeletePopup.vue'
-import CheckAll from './components/CheckAll.vue'
 
-import DatePicker from 'vue2-datepicker';
+// import {DropDownButtonPlugin} from "@syncfusion/ej2-vue-splitbuttons";
 
 import 'vue2-datepicker/index.css';
 import moment from 'moment';
@@ -68,6 +70,8 @@ import { EventBus } from './bus.js';
 
 import {store} from './store'
 import { mapGetters } from 'vuex';
+
+// Vue.use(DropDownButtonPlugin);
 
 new Vue({
     el:  '#app',
@@ -91,19 +95,23 @@ new Vue({
         
             options: {
                 services: ['Pool Cleaning', 'Pool Repair', 'Pool Installation Estimate'],
+                account: ['Cancel Accout', 'Schedule A Service', 'Update Account Information', 'Update Password',
+                                'Update/Set Up Billing Information', 'Pool Service Appointment', 'Pool Service History'],
 
-                months: ['January', 'February', 'March', 'April', 'May', 'June',
-                        'July', 'August', 'September', 'October', 'November', 'December'],
 
-                days: ['1', '2', '3', '4', '5', '6' , '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', 
-                    '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
+
+                // months: ['January', 'February', 'March', 'April', 'May', 'June',
+                //         'July', 'August', 'September', 'October', 'November', 'December'],
+
+                // days: ['1', '2', '3', '4', '5', '6' , '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', 
+                //     '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
                 
-                times: ['8:00', '8:30', '9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30',
-                        '1:00', '1:30', '2:00', '2:30', '3:00', '3:30', '4:00', '4:30', '6:00', '6:30'], 
+                // times: ['8:00', '8:30', '9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30',
+                //         '1:00', '1:30', '2:00', '2:30', '3:00', '3:30', '4:00', '4:30', '6:00', '6:30'], 
 
-                daytime: ['AM', 'PM'],
+                // daytime: ['AM', 'PM'],
 
-                id: ['service_type', 'service_month', "service_day", "service_time", "day_time"],
+                // id: ['service_type', 'service_month', "service_day", "service_time", "day_time"],
 
                 height: '28.5vh',
 
@@ -291,6 +299,21 @@ new Vue({
     }
 })
  
+
+new Vue({
+    el: '#list',
+
+    components: {
+        Dropdownlist
+    }, 
+
+    data() {
+        return {
+            
+           
+        }
+    }
+})
 
 
 

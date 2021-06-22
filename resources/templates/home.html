@@ -16,21 +16,19 @@
       </div>
       <div class="flex">
         {%if auth() %}
-          
-          <div class="mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            <a href="{{route ('account')}}" class="">My Account</a>
-          </div>
-          <div class="mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            <form class="" action="{{route ('home')}}" method="post">
-              {{ csrf_field }}
-                <button id="button" class="font-bold"  type="submit" name="logout">Logout</button>
-            </form>
-          </div>
+      <div id='list'>
+        <dropdownlist></dropdownlist>
+      </div>
+      <div class="mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        <form class="" action="{{route ('home')}}" method="post">
+          {{ csrf_field }}
+            <button id="button" class="font-bold"  type="submit" name="logout">Logout<i class="fas fa-sign-out-alt ml-3"></i></button>
+        </form>
+      </div>
         {%else%}
         <div class="mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-          <a href = "{{route ('login')}}" >Login</a>
+          <a href = "{{route ('login')}}" >Login<i class="fas fa-sign-in-alt ml-2"></i></a>
         </div>
-        
         <div class="mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline">
           <a href = "{{route ('register')}}"class="">New Account</a>
         </div>
@@ -49,7 +47,6 @@
            {{ session().get('success') }}
        </div>
        {% endif %}
-       
          <div id="carousel">
           <carousel-button @next="next" @previous="prev"> 
             <carousel :img='images[0 + i]'>

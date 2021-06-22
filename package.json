@@ -1,6 +1,7 @@
 {
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.3",
+        "@syncfusion/ej2-vue-splitbuttons": "^19.1.63",
         "datepicker": "^0.0.0",
         "form-data": "^4.0.0",
         "fs": "^0.0.1-security",
