@@ -10,7 +10,10 @@ from masonite import Mail
 from app.Schedule import Schedule
 from app.User import User
 from app.Schedule import Schedule
+from app.OneTimeService import OneTimeService
 from datetime import datetime
+
+import jwt
 
 class ScheduleController(Controller):
     """ScheduleController Controller Class."""
@@ -24,15 +27,21 @@ class ScheduleController(Controller):
         self.request = request
 
     def show(self, view: View, request: Request):
+
+        if request.user():
+            user=request.user()
+            firstname = user.firstname
+            lastname = user.lastname
+            address = user.address
+            service_id = request.param('slug')
         
-        user=request.user()
-        firstname = user.firstname
-        lastname = user.lastname
-        address = user.address
-        service_id = request.param('slug')
+            return view.render('schedule', {"address": address, "firstname": firstname, "lastname": lastname, "service_id": service_id, 'token': token}) 
 
-        return view.render('schedule', {"address": address, "firstname": firstname, "lastname": lastname, "service_id": service_id}) 
+        elif not request.user():
+            token = request.param('token')
+            return view.render('schedule', {'token': token})
 
+        
     def schedule(self, view: View, request: Request, validate: Validator, mail: Mail):
         user = User.all()
         customer = request.user()
@@ -102,6 +111,63 @@ class ScheduleController(Controller):
         request.session.flash('success', 'Your appointment has been updated!  A confirmation email has been sent.')
 
         return request.redirect('/')
+
+    def reschedule(self, request: Request, validate: Validator, mail: Mail):
+        errors = request.validate(
+            validate.required(['service_type', 'name', 'address', 'email', 'cell_phone']))
+        
+        if errors:
+            return request.back().with_errors(errors)
+        
+        token = request.param('token')
+        decoded_token = jwt.decode(token, 'secret', algorithm='HS256')
+        guest = OneTimeService.where('email', decoded_token['email']).update(service=request.input('service_type'), customer_name=request.input('name'),
+                                                                             address=request.input('address'), service_date=request.input('date')[0],
+                                                                             service_time=request.input('date')[1], email=request.input('email'), 
+                                                                             cell_phone=request.input('cell_phone'))
+
+        
+        email = request.input('email')
+        encoded_jwt = jwt.encode({'email': email, 'httpMethod': 'GET'}, 'secret', algorithm='HS256', ).decode('utf-8') 
+
+        mail.subject('Pool Appointment Confirmation').to(request.input('email')).template('mail/appt_confirm', {'service': request.input('service_type'),
+            'service_date': request.input('date')[0], 'service_time': request.input('date')[1], 'token': encoded_jwt }).send()
+
+        request.session.flash('success', 'Your appointment has been successfully rescheduled!  A confirmation email has been sent.')
+
+        return request.redirect('/') 
+
+
+    def once(self, request: Request, validate: Validator, mail: Mail):
+        email = request.input('email')
+        encoded_jwt = jwt.encode({'email': email, 'httpMethod': 'GET'}, 'secret', algorithm='HS256', ).decode('utf-8')
+
+        errors = request.validate(
+            validate.required(['service_type', 'name', 'address', 'email', 'cell_phone']))
+            
+        if errors:
+            return request.back().with_errors(errors)
+
+        OneTimeService.insert({
+            'service': request.input('service_type'),
+            'customer_name': request.input('name'),
+            'address': request.input('address'),
+            'service_date': request.input('date')[0],
+            'service_time': request.input('date')[1],
+            "email": request.input('email'),
+            'cell_phone': request.input('cell_phone'),
+            'remember_token': encoded_jwt
+        })
+
+        email = request.input('email')
+        encoded_jwt = jwt.encode({'email': email, 'httpMethod': 'GET'}, 'secret', algorithm='HS256', ).decode('utf-8')
+
+        mail.subject('Pool Appointment Confirmation').to(request.input('email')).template('mail/appt_confirm', {'service': request.input('service_type'),
+            'service_date': request.input('date')[0], 'service_time': request.input('date')[1], 'token': encoded_jwt }).send()
+       
+        request.session.flash('success', 'Your appointment has been successfully scheduled!  A confirmation email has been sent.')
+
+        return request.redirect('/') 
         
         
 

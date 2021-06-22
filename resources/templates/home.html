@@ -22,15 +22,18 @@
       <div class="mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline">
         <form class="" action="{{route ('home')}}" method="post">
           {{ csrf_field }}
-            <button id="button" class="font-bold"  type="submit" name="logout">Logout<i class="fas fa-sign-out-alt ml-3"></i></button>
+            <button id="button" class=""  type="submit" name="logout">Logout<i class="fas fa-sign-out-alt ml-3"></i></button>
         </form>
       </div>
         {%else%}
-        <div class="mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        <div class="mr-8 bg-blue-500 hover:bg-blue-700 text-white rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline">
           <a href = "{{route ('login')}}" >Login<i class="fas fa-sign-in-alt ml-2"></i></a>
         </div>
-        <div class="mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-          <a href = "{{route ('register')}}"class="">New Account</a>
+        <div class="mr-8 bg-blue-500 hover:bg-blue-700 text-white rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          <a id='newAccountButton' href = "{{route ('register')}}"class="">New Account</a>
+        </div>
+        <div class="mr-8 bg-blue-500 hover:bg-blue-700 text-white rounded py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          <a id='oneTimeButton' href = "{{route ('schedule_once')}}"class="">Guest</a>
         </div>
       </div>
       {%endif%}

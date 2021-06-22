@@ -13,18 +13,21 @@
             </div>
         {% endfor %}
     {% endif %}
-    <div class="mb-3">
+    <div id="message" class="mb-3">
       {% if session().has('success') %}
       <div class="alert alert-success">
           {{ session().get('success') }}
       </div>
       {% endif %}
     </div>
-    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" action="" method="POST">
+    <form id="reregister" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" action="" method="POST">
       {{ csrf_field }}
       {{back()}}
+      <!-- <div  class="flex justify-center">
+        <re-register ></re-register>
+      </div> -->
       <div class="">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="firstname">First Name</label>
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="firstname">First Name</label> 
         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="firstname" type="text" name="firstname" value="{{old ('firstname')}}">
       </div>
       <div class="">

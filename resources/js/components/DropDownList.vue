@@ -1,14 +1,13 @@
 <template>
-    <div
-        class="relative mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-2 rounded focus:outline-none focus:shadow-outline">
-        <button @click="optionsAreVisible = !optionsAreVisible" class="relative z-10 focus:outline-none focus:shadow-outline">
+    <div class="relative mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-2 rounded focus:outline-none focus:shadow-outline">
+        <button @click="optionsAreVisible = !optionsAreVisible" class="relative z-10 focus:outline-none focus:shadow-outline" style="outline: none">
             My Account<i class="far fa-user ml-3"></i>
         </button>
         <button v-if="optionsAreVisible" @click="optionsAreVisible=false" tabindex="-1" class="fixed h-full w-full inset-0 cursor-default"></button>
         <div class="flex justify-center" v-if="optionsAreVisible"> 
             <ul class="absolute z-auto max-h-20 w-full mt-2 shadow appearance-none border rounded bg-white text-xs
             font-bold text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline overflow-auto">
-                <li class="text-center">
+                <li class="text-center pr-2 pl-2">
                     <a href="/schedule"><li class="mt-2 mb-2 font-bold text-gray-800 hover:bg-blue-700 hover:text-white">Schedule A Service</li></a>
                     <a href="/account/update"><li class='mb-2 font-bold text-gray-800 hover:bg-blue-700 hover:text-white'>Update Account Information</li></a>
                     <a href="/account/password"><li class="mb-2 font-bold text-gray-800 hover:bg-blue-700 hover:text-white">Update Password</li></a>

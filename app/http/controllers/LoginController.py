@@ -9,7 +9,6 @@ from app.User import User
 
 import bcrypt
 
-
 class LoginController(Controller):
     """LoginController Controller Class."""
 
@@ -25,8 +24,10 @@ class LoginController(Controller):
         if request.user():
             return request.redirect('/')
         return view.render('login')
+        # cancelled = user.where('email', request.input('email')).where('cancelled', 'Yes')
+        # return view.render('login', {'cancelled': cancelled})
 
-    def store(self, request: Request, auth: Auth, validate: Validator):
+    def store(self, request: Request, auth: Auth, validate: Validator, view: View):
         user = User.all()
 
         email = User.lists('email')
@@ -47,16 +48,12 @@ class LoginController(Controller):
             })
 
         #check to see if user already had an account which they may have closed/cancelled and need to register for a new account or reactivate account.
-        if auth.login(request.input('email'), request.input('password')) and user.where('email', request.input('email')).where('cancelled', 'Yes'):
-            request.session.flash('success', 'This account has been cancelled. Please register a new account.')
-            auth.logout()
-            return request.redirect('/register')
-            # return request.back().with_errors({
-            # 'email': ["This account has been cancelled.  Please re-register."]
-            # })
+        if user.where('email', request.input('email')).where('cancelled', 'Yes'):
+            cancelled = True   
+            return request.redirect('/reregister')
 
         #logins user if no errors and account has not been closed/cancelled before
-        elif auth.login(request.input('email'), request.input('password')):
+        if auth.login(request.input('email'), request.input('password')):
             return request.redirect('/')
 
         # returns back to login page if email or password are incorrect
