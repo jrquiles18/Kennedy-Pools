@@ -10,7 +10,7 @@ ROUTES = [
     Get('/login', "LoginController@show").name('login'),
     Get('/login/forgot', "PasswordController@forgot").name('forgot_password'),
     Get('/register', "RegisterController@show").name('register'),
-    Get('reregister', "ReregisterController@show").name('reregister'),
+    Get('/reregister/@id', "ReregisterController@show").name('reregister'),
     # Get('/registered', "RegisteredController@show").name('registered'),
     Get('/schedule', "ScheduleController@show").name('schedule'),
     Get('/schedule/one-time-schedule', "ScheduleController@show").name('schedule_once'),
@@ -27,12 +27,12 @@ ROUTES = [
     Get('/contact', "ContactController@show").name('contact'),
     Get('/schedule', "ScheduleController@logout").name('schedule_logout'),
     Get('/schedule/@slug', "ScheduleController@show").name('update_schedule'),
-    # Get('/schedule/cancel/@token', "ScheduleGuestCancelController@show").name('account_cancel_guest'),
+    Get('/appointment/cancel/@slug', "PoolAppointmentsController@cancel").name('account_cancel_guest'),
     #Get('/', 'WelcomeController@show').name('welcome'),
 
     Post('/','HomeController@logout').name('home_logout'),
     Post('/register', "RegisterController@register").name('account_register'),
-    Post('/reregister', "ReregisterController@reregister").name('account_reregister'),
+    Post('/reregister/@id', "ReregisterController@reregister").name('account_reregister'),
     Post('/login', "LoginController@store").name('login_user'),
     Post('/login/forgot', "PasswordController@send").name('send'),
     Post('/account', "AccountController@logout").name('account_logout'),
@@ -46,8 +46,9 @@ ROUTES = [
     Post('/schedule', "ScheduleController@schedule").name('schedule'),
     Post('/schedule/one-time-schedule', "ScheduleController@once").name('schedule_one_time'),
     Post('/schedule/one-time-schedule/@token', "ScheduleController@reschedule").name('reschedule_one_time'),
-    Post('/schedule/@slug', "ScheduleController@update").name('poo_appointments_update'),
-
+    Post('/schedule/@slug', "ScheduleController@update").name('pool_appointments_update'),
+    # Post('/schedule/cancel/@slug', "ScheduleController@cancel").name('pool_appointments_cancel'),
+    
     ScheduleResource('/api/schedules').middleware('guard:api').routes(),
     UserResource('/api/users').middleware('guard:api').routes(),
 

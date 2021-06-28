@@ -2565,7 +2565,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -2579,7 +2578,25 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     oldAccount: function oldAccount() {
-      window.location.href = '/register/';
+      // window.location.href='/register/'
+      var path = window.location.pathname.split('/');
+      var id = path[2];
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/users/' + id).then(function (response) {
+        var firstname = response.data['firstname'];
+        document.getElementById('firstname').value = firstname;
+        var lastname = response.data['lastname'];
+        document.getElementById('lastname').value = lastname;
+        var address = response.data['address'];
+        document.getElementById('address').value = address;
+        var cellPhone = response.data['cell_phone'];
+        document.getElementById('cell_phone').value = cellPhone;
+        var email = response.data['email'];
+        document.getElementById('email').value = email;
+        var userName = response.data['username'];
+        document.getElementById('username').value = userName;
+      })["catch"](function (error) {
+        console.log(error);
+      });
       this.accountCancelled = false;
     },
     newAccount: function newAccount() {
@@ -2590,15 +2607,14 @@ __webpack_require__.r(__webpack_exports__);
       this.accountCancelled = false;
     }
   },
-  created: function created() {
-    var _this = this;
-
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/users').then(function (response) {
-      console.log(response.data);
-      _this.accountCancelled = response.data;
-    })["catch"](function (error) {
-      console.log(error);
-    }); // if (this.clicked === true){
+  mounted: function mounted() {
+    this.accountCancelled = true; // axios.get('/api/users/6').then((response) => {
+    //         console.log(response.data)
+    //         this.accountCancelled = true
+    // }).catch(function (error){
+    //     console.log(error)
+    //     })
+    // if (this.clicked === true){
     //     axios.get('/api/users').then((response) => {
     //         console.log(response.data)
     //         this.accountCancelled = response.data

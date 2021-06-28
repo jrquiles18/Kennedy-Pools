@@ -63,6 +63,10 @@ class RegisterController(Controller):
             if bcrypt.checkpw(bytes(request.input('password'), 'utf-8'), bytes(pw, 'utf-8')):
                 return request.back().with_errors({'error': ['Password already exists.  Please create a new password.']})
 
+        if request.input('password') != request.input('password_confirm'):
+            return request.back().with_errors({'error': ['Passwords do not match.  Please make sure passwords match']})
+
+
         #This registers a new account
         user = auth.register({
             'firstname': request.input('firstname'),
@@ -76,7 +80,7 @@ class RegisterController(Controller):
         #Checking to see if all inputs on registration form are in correct format.
         
         #Will send an email confirming account has been created.
-        mail.send_from('jrquiles18@gmail.com').subject('Account Confirmation').to(request.input('email')).template('mail').send()
+        mail.send_from('jrquiles18@gmail.com').subject('Account Confirmation').to(request.input('email')).template('mail/mail').send()
 
         # Login the user
         if auth.login(request.input('email'), request.input('password')):

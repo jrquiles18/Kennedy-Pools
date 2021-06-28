@@ -20,9 +20,12 @@ class UserResource(Resource, JSONSerializer):
         email = user.email
         username = user.username
 
-        return view.render('register', {'firstname': firstname, 'lastname': lastname, 'address': address, 'cell_phone': cell_phone,
-                                        'email': email, 'username': username})
-
+        
+        # return view.render('reregister', {'firstname': firstname, 'lastname': lastname, 'address': address, 'cell_phone': cell_phone,
+        #                                 'email': email, 'username': username})
+        return {'firstname': firstname, 'lastname': lastname, 'address': address, 'cell_phone': cell_phone,
+                                        'email': email, 'username': username} 
+    
     def index(self, request: Request, view: View):
         boolean = True
         clicked = True

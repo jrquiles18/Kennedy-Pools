@@ -24,9 +24,7 @@ class LoginController(Controller):
         if request.user():
             return request.redirect('/')
         return view.render('login')
-        # cancelled = user.where('email', request.input('email')).where('cancelled', 'Yes')
-        # return view.render('login', {'cancelled': cancelled})
-
+       
     def store(self, request: Request, auth: Auth, validate: Validator, view: View):
         user = User.all()
 
@@ -49,8 +47,9 @@ class LoginController(Controller):
 
         #check to see if user already had an account which they may have closed/cancelled and need to register for a new account or reactivate account.
         if user.where('email', request.input('email')).where('cancelled', 'Yes'):
-            cancelled = True   
-            return request.redirect('/reregister')
+            # cancelled = True   
+            user_id = User.where('email', request.input('email')).get().pluck('id')
+            return request.redirect('/reregister/' + str(user_id[0]))
 
         #logins user if no errors and account has not been closed/cancelled before
         if auth.login(request.input('email'), request.input('password')):

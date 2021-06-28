@@ -27,21 +27,40 @@ class ScheduleController(Controller):
         self.request = request
 
     def show(self, view: View, request: Request):
-
+        token = request.param('token')
+        # guest = OneTimeService.where('remember_token', token).get()
+        # name = guest.pluck('customer_name')[0]
+        # address = guest.pluck('address')[0]
+        # email = guest.pluck('email')[0]
+        # cell_phone = guest.pluck('cell_phone')[0]
+        # service_id = guest.pluck('id')[0]
         if request.user():
             user=request.user()
             firstname = user.firstname
             lastname = user.lastname
             address = user.address
             service_id = request.param('slug')
-        
+            token = user.remember_token
             return view.render('schedule', {"address": address, "firstname": firstname, "lastname": lastname, "service_id": service_id, 'token': token}) 
+        
+        elif not request.user() and not token:
+            # token = request.param('token')
+            # return view.render('schedule', {'token': token})
+            return view.render('schedule')
 
+            # return view.render('schedule', {'name':name, 'address':address, 'email': email, 'cell_phone':cell_phone, 'token': token})
         elif not request.user():
             token = request.param('token')
-            return view.render('schedule', {'token': token})
+            guest = OneTimeService.where('remember_token', token).get()
+            name = guest.pluck('customer_name')[0]
+            address = guest.pluck('address')[0]
+            email = guest.pluck('email')[0]
+            cell_phone = guest.pluck('cell_phone')[0]
+            return view.render('schedule', {'name':name, 'address':address, 'email': email, 'cell_phone':cell_phone, 'token': token})
 
-        
+        else:
+            return request.redirect('/login')
+
     def schedule(self, view: View, request: Request, validate: Validator, mail: Mail):
         user = User.all()
         customer = request.user()
@@ -77,13 +96,15 @@ class ScheduleController(Controller):
         customer_schedule = Schedule.get().last()
         
          #sends email with pool appointment schedule details
-        mail.subject('Pool Appointment Confirmation').to(customer.email).template('appt_confirm', {'service': customer_schedule.service, 
+        mail.subject('Pool Appointment Confirmation').to(customer.email).template('mail/appt_confirm', {'service_id': customer_schedule.id, 'service': customer_schedule.service, 
                                 'service_date':customer_schedule.service_date, 'service_time':customer_schedule.service_time}).send()
         
         request.session.flash('success', 'Your appointment has been successfully scheduled!  A confirmation email has been sent.')
         
         return request.redirect('/') 
 
+    def cancel(self, request: Request):
+        return 'hello'
     def update(self, view: View, request: Request, validate: Validator, mail: Mail):
         schedule_date_info =  request.input('date')
         customer = request.user()
@@ -106,8 +127,8 @@ class ScheduleController(Controller):
         customer_schedule = Schedule.get().last()
 
         #sends email with pool appointment schedule details
-        # mail.subject('Pool Appointment Update Confirmation').to(customer.email).template('appt_confirm', {'service': customer_schedule.service, 
-        #                         'service_date':customer_schedule.service_date, 'service_time':customer_schedule.service_time}).send()
+        mail.subject('Pool Appointment Update Confirmation').to(customer.email).template('mail/appt_confirm', {'service_id': request.param('slug'), 'service': customer_schedule.service, 
+                                'service_date':customer_schedule.service_date, 'service_time':customer_schedule.service_time}).send()
         request.session.flash('success', 'Your appointment has been updated!  A confirmation email has been sent.')
 
         return request.redirect('/')
@@ -122,15 +143,14 @@ class ScheduleController(Controller):
         token = request.param('token')
         decoded_token = jwt.decode(token, 'secret', algorithm='HS256')
         guest = OneTimeService.where('email', decoded_token['email']).update(service=request.input('service_type'), customer_name=request.input('name'),
-                                                                             address=request.input('address'), service_date=request.input('date')[0],
-                                                                             service_time=request.input('date')[1], email=request.input('email'), 
-                                                                             cell_phone=request.input('cell_phone'))
+                                                                            address=request.input('address'), service_date=request.input('date')[0],
+                                                                            service_time=request.input('date')[1], email=request.input('email'), 
+                                                                            cell_phone=request.input('cell_phone'))
 
-        
         email = request.input('email')
         encoded_jwt = jwt.encode({'email': email, 'httpMethod': 'GET'}, 'secret', algorithm='HS256', ).decode('utf-8') 
 
-        mail.subject('Pool Appointment Confirmation').to(request.input('email')).template('mail/appt_confirm', {'service': request.input('service_type'),
+        mail.subject('Pool Appointment Confirmation').to(request.input('email')).template('mail/appt_confirm_guest', {'service_id': request.param('slug'), 'service': request.input('service_type'),
             'service_date': request.input('date')[0], 'service_time': request.input('date')[1], 'token': encoded_jwt }).send()
 
         request.session.flash('success', 'Your appointment has been successfully rescheduled!  A confirmation email has been sent.')
@@ -162,7 +182,7 @@ class ScheduleController(Controller):
         email = request.input('email')
         encoded_jwt = jwt.encode({'email': email, 'httpMethod': 'GET'}, 'secret', algorithm='HS256', ).decode('utf-8')
 
-        mail.subject('Pool Appointment Confirmation').to(request.input('email')).template('mail/appt_confirm', {'service': request.input('service_type'),
+        mail.subject('Pool Appointment Confirmation').to(request.input('email')).template('mail/appt_confirm_guest', {'service': request.input('service_type'),
             'service_date': request.input('date')[0], 'service_time': request.input('date')[1], 'token': encoded_jwt }).send()
        
         request.session.flash('success', 'Your appointment has been successfully scheduled!  A confirmation email has been sent.')

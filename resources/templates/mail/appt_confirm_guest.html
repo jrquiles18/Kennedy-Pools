@@ -16,14 +16,13 @@
         <h1>Details About Your Upcoming Pool Appointment</h1>
         <div>
             <div>
-                <h2>Service ID:  {{service_id}}</h2>
                 <h2>Type of Service: {{service}}</h2>
                 <h2>Appointment Date: {{service_date}}</h2>
                 <h2>Appointment Time: {{service_time}}</h2>
             </div>
             <div>
                 <!-- need to put in absolute path -->
-                <p>Need to<a href="http://127.0.0.1:8000/schedule/{{service_id}}"> reschedule </a>or<a href="http://127.0.0.1:8000/appointment/cancel/{{service_id}}"> cancel </a>service appointment?</p>                
+                <p>Need to<a href="http://127.0.0.1:8000/schedule/one-time-schedule/{{token}}"> reschedule </a>or<a href="http://127.0.0.1:8000/account/cancel/{{token}}"> cancel </a>service appointment</p>
             </div>
         </div>
       </div>

@@ -8,6 +8,8 @@ from masonite.controllers import Controller
 from app.Schedule import Schedule
 from app.User import User
 
+from datetime import date
+
 class PoolAppointmentsController(Controller):
     """PoolAppointmentsController Controller Class."""
 
@@ -28,3 +30,18 @@ class PoolAppointmentsController(Controller):
     def logout(self, view: View, request: Request, auth: Auth):
         auth.logout()
         return request.redirect('/')
+
+    def cancel(self, view: View, request: Request, auth: Auth):
+        today_date = date.today()
+        id = request.param('slug')
+        
+        cancelled_date = Schedule.where('id', request.param('slug')).get().pluck('cancelled_on')
+        
+        if cancelled_date[0] is not None:
+            auth.logout()
+            return view.render('pool_appointment_cancel', {'cancelled_date': cancelled_date}) 
+
+        else:
+            Schedule.find(id).update(cancelled_on=today_date)
+            auth.logout()
+            return view.render('pool_appointment_cancel')

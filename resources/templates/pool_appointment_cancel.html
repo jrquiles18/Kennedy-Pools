@@ -1,0 +1,13 @@
+{%extends '/home.html'%}
+
+{%block content%}
+    {% if cancelled_date is defined %}
+        <div class="flex justify-center mt-20">
+            <h1>This appointment has already been cancelled.</h1>
+        </div>
+    {% else %}
+        <div class="flex justify-center mt-20">
+            <h1>Your pool appointment has been successfully cancelled.  We will see you next time.</h1>
+        </div>
+    {% endif %}
+{%endblock%}
