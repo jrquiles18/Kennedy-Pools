@@ -105,6 +105,7 @@ class ScheduleController(Controller):
 
     def cancel(self, request: Request):
         return 'hello'
+
     def update(self, view: View, request: Request, validate: Validator, mail: Mail):
         schedule_date_info =  request.input('date')
         customer = request.user()
@@ -154,9 +155,7 @@ class ScheduleController(Controller):
             'service_date': request.input('date')[0], 'service_time': request.input('date')[1], 'token': encoded_jwt }).send()
 
         request.session.flash('success', 'Your appointment has been successfully rescheduled!  A confirmation email has been sent.')
-
         return request.redirect('/') 
-
 
     def once(self, request: Request, validate: Validator, mail: Mail):
         email = request.input('email')

@@ -1,52 +1,14 @@
 {%extends '/home.html'%}
 
 {%block content%}
-<div id="spinner" style="display:none" class="absolute h-full flex w-screen bg-black bg-opacity-25 place-content-center">
-  <div class="flex justify-center m-auto items-center">
-      <div >
-        <svg fill="#1e90ff" width="30" height="30" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-              <linearGradient x1="8.042%" y1="0%" x2="65.682%" y2="23.865%" id="a">
-                  <stop stop-color="#fff" stop-opacity="0" offset="0%"/>
-                  <stop stop-color="#fff" stop-opacity=".631" offset="63.146%"/>
-                  <stop stop-color="#fff" offset="100%"/>
-              </linearGradient>
-          </defs>
-          <g fill="none" fill-rule="evenodd">
-              <g transform="translate(1 1)">
-                  <path d="M36 18c0-9.94-8.06-18-18-18" id="Oval-2" stroke="url(#a)" stroke-width="2">
-                      <animateTransform
-                          attributeName="transform"
-                          type="rotate"
-                          from="0 18 18"
-                          to="360 18 18"
-                          dur="0.9s"
-                          repeatCount="indefinite" />
-                  </path>
-                  <circle fill="#fff" cx="36" cy="18" r="1">
-                      <animateTransform
-                          attributeName="transform"
-                          type="rotate"
-                          from="0 18 18"
-                          to="360 18 18"
-                          dur="0.9s"
-                          repeatCount="indefinite" />
-                  </circle>
-              </g>
-          </g>
-      </svg>
-      </div>
-      <h1 class= "ml-3 animate-pulse text-blue-500 text-2xl">Scheduling Now!</h1>
-  </div>
+<div id='spinner' class='relative'>
+  <spinner></spinner>
 </div>
-<!-- <div id="spinner" class="flex justify-center">
-  <spinner :start="spin"></spinner>
-</div> -->
 <div class="flex justify-center">
   <div class="mt-8 w-full max-w-lg" >
-    <div id='popup' class='flex justify-center'>
-      <popup></popup>
-    </div>
+      <!-- <div id='popup' class='flex justify-center'>
+        <popup></popup>
+      </div> -->
     <div class="mb-5 mt-3 text-center text-white text-3xl font-bold">
       <h1>Schedule Pool Service</h1>
     </div>
@@ -123,33 +85,20 @@
           </div>
         </div>
       </div>
-      <!-- <div class="mt-2 flex justify-around">
-        {%if service_id%}
-        <button @click='updateSchedule' class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 mt-3 rounded focus:outline-none focus:shadow-outline" type="sumbit" name="schedule">Update</button>
-       {% else %}
-        <button id="loader" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 mt-3 rounded focus:outline-none focus:shadow-outline" type="sumbit" name="schedule">Schedule</button>
-       {% endif %}
-        <button @click='updateSchedule' class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 mt-3 rounded focus:outline-none focus:shadow-outline" type="sumbit" name="schedule">Update</button>
-      {%if not auth()%}
-        <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 mt-3 rounded focus:outline-none focus:shadow-outline" type="submit"  name="one_time_service">One Time Service</button>
-      {%endif%}
-      </div> -->
-      
       <div class="mt-2 flex justify-around">
         {%if service_id %}
-        <button @click='updateSchedule' class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 mt-3 rounded focus:outline-none focus:shadow-outline" type="sumbit" name="schedule">Update</button>
+        <button @click='updateSchedule(); openSpinner()' class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 mt-3 rounded focus:outline-none focus:shadow-outline" type="sumbit" name="schedule">Update</button>
         <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mt-3 rounded focus:outline-none focus:shadow-outline" type="reset" name="clear_form">Clear Form</button>
         {%elif (not auth()) and (token)%}
-        <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-3 rounded focus:outline-none focus:shadow-outline" type="submit"  name="one_time_service">Reschedule Service</button>
+        <button @click='openSpinner' class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-3 rounded focus:outline-none focus:shadow-outline" type="submit"  name="one_time_service">Reschedule Service</button>
         <!-- <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 mt-3 rounded focus:outline-none focus:shadow-outline" type="submit"  name="one_time_service_cancel">Cancel Appointment</button> -->
         {%elif not auth() %}
-        <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-3 rounded focus:outline-none focus:shadow-outline" type="submit"  name="one_time_service">One Time Service</button>
+        <button @click='openSpinner' class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-3 rounded focus:outline-none focus:shadow-outline" type="submit"  name="one_time_service">One Time Service</button>
         {%else%}
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-3 rounded focus:outline-none focus:shadow-outline" type="sumbit" name="schedule">Schedule</button>
+        <button @click='openSpinner' class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-3 rounded focus:outline-none focus:shadow-outline" type="sumbit" name="schedule">Schedule</button>
         <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mt-3 rounded focus:outline-none focus:shadow-outline" type="reset" name="clear_form">Clear Form</button>
         {%endif%}
       </div>
-
     </form>
   </div>
 </div>

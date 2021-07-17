@@ -11,10 +11,10 @@
         data(){
             return{
                 isSelect: true,
-                check: true
+                check: true,
+                rowsToDelete:[]
             }
         },
-
         methods: {
             selectAll(){
                 // this.isSelect = ! this.isSelect
@@ -23,6 +23,9 @@
                 if (this.isSelect === true && typeof rows !== 'undefined'){
                     for (var i = 0; i < rows.length; i++) {
                         rows[i].style.background = 'rgba(255, 0, 0, 0.4)';
+                        var rowToDelete = rows[i].getElementsByTagName('td')[0].innerHTML
+                        console.log(rowToDelete)
+                        this.rowsToDelete.push(rowToDelete)
                     }
                     EventBus.$emit('open-pop-up2', {warning1: true, warning2: false})
                 }
@@ -31,8 +34,8 @@
                         rows[i].style.background = 'rgba(250, 251, 252)'
                     }
                 }
-                
             }  
         },
     }
 </script>
+

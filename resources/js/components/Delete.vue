@@ -34,34 +34,8 @@
                 // console.log(service_id)
                 EventBus.$emit('open-pop-up', true)
                 EventBus.$emit('delete-row', {id: service_id, element: element, index: index})
-            },
-
-            // deleteRow(event){
-                // var element = event.target.getAttribute('id')
-                // // var trHTMLCollenction = document.getElementById('app').getElementsByTagName('tr')
-                // // var trArray = Array.prototype.slice.call(trHTMLCollenction)
-               
-                // var trLen = document.getElementById('app').getElementsByTagName('tr').length
-                // for (var i=0; i < trLen; i++){
-                //     var trId = document.getElementById('app').getElementsByTagName('tr')[i].getAttribute('id')
-                //     if (element === trId){
-                //         var buttonTr = document.getElementById('app').getElementsByTagName('tr')[i]
-                //     }
-                //  }
-                // var service_id = buttonTr.getElementsByTagName('td')[0].innerHTML
-                // EventBus.$emit('delete-row', event)
                 
-            //     axios.delete('/api/schedules/' + service_id.trim(), {
-            //         data: {id: service_id}
-            //     }).then(function (response){
-            //         console.log(response.data)
-
-            //     }).catch(function (error){
-            //         console.log(error)
-            //     })
-            //     document.getElementById('app').deleteRow(element-1)
-            
-            // }
+            },
         },
         
         // This adds id attributes to html elements

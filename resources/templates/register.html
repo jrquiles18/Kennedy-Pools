@@ -1,6 +1,9 @@
 {%extends '/home.html'%}
 
 {%block content%}
+<div id='spinner' class='mb-5'>
+  <spinner></spinner>
+</div>
 <div class="flex justify-center">
   <div class="mt-8 w-full max-w-lg">
     <div class="mb-5 text-center text-white text-3xl font-bold">
@@ -65,7 +68,7 @@
         </div>
       </div>
       <div class="flex items-center justify-center mt-4">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="sumbit" name="login">Register</button>
+        <button @click='openSpinnerRegister' class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="sumbit" name="login">Register</button>
       </div>
     </form>
   </div>

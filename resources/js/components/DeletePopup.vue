@@ -4,7 +4,8 @@
         <div v-if="popUpWarning" class="flex items-center">{{warning1}}</div>
         <div v-else class="flex items-center">{{warning2}}</div>
         <div class="mt-4 flex justify-around">
-            <button  @click="deleteRow" type="button" class="rounded-md border-2 border-black p-2 bg-red-500 hover:bg-red-700" style="outline:none">Delete</button>
+            <button v-if='popUpWarning' @click="deleteRow()" type="button" class="rounded-md border-2 border-black p-2 bg-red-500 hover:bg-red-700" style="outline:none">Delete</button>
+            <button v-else @click="deleteRows()" type="button" class="rounded-md border-2 border-black p-2 bg-red-500 hover:bg-red-700" style="outline:none">Delete</button>
             <button @click.prevent="closePopUp(); closePopUp2()"  class="rounded-md border-2 border-black p-2 bg-green-500 hover:bg-green-700" style="outline:none">Cancel</button>
         </div>
     </div>
@@ -22,7 +23,8 @@
                 warning2: "Are you sure you would like to delete all the appointments?",
                 service_id: ' ',
                 element: ' ',
-                index: ' '
+                index: ' ',
+                rowLength: '',
             }
         },
 
@@ -51,10 +53,37 @@
                 })
                 document.getElementById('app').deleteRow(this.index)
                 this.popUpOpen = false
+            },
+
+            deleteRows(){
+                axios.get('/api/schedules/').then(response =>{
+                    for (var i=0; i < response.data.length; i++ ){
+                        axios.delete('/api/schedules/' + response.data[i].id, {
+                            data: {id: response.data[i].id}
+                        }).then(function (response){
+                            console.log(response.data)
+                        }).catch(function (error){
+                            console.log(error)
+                        })
+                        document.getElementById('app').deleteRow(response.data[i])
+                        this.popUpOpen = false
+                    }
+                }).catch(error => {
+                    console.log(error)
+                })
+                document.getElementById('chk').checked = false
             }
         },
 
         mounted (){
+            EventBus.$on('close-pop-up', payload => {
+                this.popUpOpen = payload
+                var rows = document.getElementById('app').querySelectorAll('tr')
+                for (var i=0; i < rows.length; i++){
+                        rows[i].style.background = 'rgba(250, 251, 252)'
+                    }
+                document.getElementById('chk').checked = false
+            }),
             EventBus.$on('open-pop-up', popUpOpen => {
                 this.popUpOpen = popUpOpen
                 this.popUpWarning = popUpOpen
@@ -62,12 +91,13 @@
             EventBus.$on('open-pop-up2', data =>{
                 this.popUpOpen = data.warning1
                 this.popUpWarning = data.warning2
+                this.rowLength = data.len
             }),
             EventBus.$on('delete-row', data => {
                 this.service_id = data.id 
                 this.element = data.element
                 this.index = data.index
             })
-        }, 
+        } 
     }   
 </script>

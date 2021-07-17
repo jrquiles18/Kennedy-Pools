@@ -61,9 +61,8 @@ import CarouselButton from './components/CarouselButton.vue'
 import CarouselIndicator from './components/CarouselIndicator.vue'
 import Popup from './components/Popup.vue'
 import ReRegister from './components/ReRegister.vue'
+import Spinner from './components/Spinner.vue'
 import Update from './components/Update.vue'
-
-// import {DropDownButtonPlugin} from "@syncfusion/ej2-vue-splitbuttons";
 
 import 'vue2-datepicker/index.css';
 import moment from 'moment';
@@ -114,6 +113,11 @@ new Vue({
     }, 
 
     methods:{
+        openSpinner(){
+            // alert('hello')
+            EventBus.$emit('open-spinner', true)
+        },
+
         updateService(value){
             this.ServiceType= value
             this.service = value
@@ -156,10 +160,6 @@ new Vue({
 
         valueUpdate(service){
             this.$store.commit('setServiceType', service) }
-        },
-
-        startLoader(){
-           
         },
 
     computed: {
@@ -313,31 +313,22 @@ new Vue({
         }
     }, 
 
-    methods: {
-        open(){
-            // Axios.get('api/users').then((response)=>{
-            //     if (response.data[1]===true) {
-            //         this.bool = response.data[0]
-            //     }
-            // }).catch ((error)=>{
-            //     console.log(error)
-            // })
-            // this.bool = true
-                
+    methods:{
+        openSpinnerRegister(){
+            // alert('hello')
+            EventBus.$emit('open-spinner-register', true)
         },
-
-        // created(){
-
-        //     axios.get('/api/users').then((response) => {
-        //         console.log(response.data)
-        //         this.bool = response.data
-        //     }).catch(function (error){
-        //             console.log(error)
-        //         })
-        // }
-       
-            
     }
+})
+
+new Vue({
+    el: "#spinner" ,
+
+    components: {
+        Spinner
+    }
+
+
 })
 
 

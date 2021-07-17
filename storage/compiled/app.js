@@ -104,13 +104,9 @@ $("document").ready(function () {
   setTimeout(function () {
     $("#flash").remove();
   }, 5000);
-}); // $("#body").on('click', '.delete', function () {
-//     $(this).closest('tr').remove()
+}); // $("#loader").on('click', function () {
+//     $("#spinner").show()
 // })
-
-$("#loader").on('click', function () {
-  $("#spinner").show();
-});
 
 /***/ }),
 

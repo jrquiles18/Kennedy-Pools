@@ -14,7 +14,7 @@ class ScheduleResource(Resource, JSONSerializer):
     def delete(self, request: Request, auth: Auth):
         id_to_delete = self.model.find(request.param('id')).id
         self.model.where('id', '=', id_to_delete ).delete()
-
+        
         return id_to_delete
     
     # This is a post API route
