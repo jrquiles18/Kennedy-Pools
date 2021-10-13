@@ -1920,3 +1920,6 @@
 2021-07-17 14:41:36 - ERROR - ContainerError in /Users/juanr.quilesjr/Desktop/KennedyPools-Masonite/bootstrap/start.py on line 38
 2021-07-17 14:42:00 - ERROR - ContainerError in /Users/juanr.quilesjr/Desktop/KennedyPools-Masonite/bootstrap/start.py on line 38
 2021-07-17 14:42:30 - ERROR - ResponseError in /Users/juanr.quilesjr/Desktop/KennedyPools-Masonite/bootstrap/start.py on line 38
+2021-09-21 00:19:58 - ERROR - InvalidSecretKey in /Users/juanr.quilesjr/Desktop/Kennedy-Pools/app/http/controllers/ScheduleController.py on line 168
+2021-10-12 01:27:00 - ERROR - SMTPAuthenticationError in /opt/anaconda3/lib/python3.7/smtplib.py on line 642
+2021-10-12 01:30:43 - ERROR - SMTPAuthenticationError in /opt/anaconda3/lib/python3.7/smtplib.py on line 642
