@@ -2503,6 +2503,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _bus_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../bus.js */ "./resources/js/bus.js");
 //
 //
 //
@@ -2518,6 +2519,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2535,14 +2537,14 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    EventBus.$on('error-message-am', function (timeUnavailable) {
+    _bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('error-message-am', function (timeUnavailable) {
       _this.timeUnavailable = timeUnavailable;
       _this.popUpOpen = true;
-    }), EventBus.$on('error-message-pm', function (pmTimeUnavailable) {
+    }), _bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('error-message-pm', function (pmTimeUnavailable) {
       _this.pmTimeUnavailable = pmTimeUnavailable;
       _this.timeUnavailable = false;
       _this.popUpOpen = true;
-    }), EventBus.$on('update-schedule', function (scheduleUpdated) {
+    }), _bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('update-schedule', function (scheduleUpdated) {
       if (scheduleUpdated === false) {
         _this.popUpOpen = false;
       } else {
@@ -26258,7 +26260,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -26271,11 +26273,11 @@ var render = function() {
             staticStyle: { outline: "none" },
             attrs: { type: "button" },
             on: {
-              click: function($event) {
+              click: function ($event) {
                 $event.preventDefault()
                 return _vm.cancelAppt($event)
-              }
-            }
+              },
+            },
           },
           [_c("i", { staticClass: "cancel far fa-window-close" })]
         )
@@ -26286,14 +26288,14 @@ var render = function() {
             staticStyle: { outline: "none" },
             attrs: { type: "button" },
             on: {
-              click: function($event) {
+              click: function ($event) {
                 $event.preventDefault()
                 return _vm.unCancelAppt($event)
-              }
-            }
+              },
+            },
           },
           [_c("i", { staticClass: "cancel far fa-window-close" })]
-        )
+        ),
   ])
 }
 var staticRenderFns = []
@@ -26314,14 +26316,14 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: " mt-5" }, [
     _c("div", { staticClass: "shadow-md" }, [
-      _c("img", { attrs: { src: _vm.img } })
-    ])
+      _c("img", { attrs: { src: _vm.img } }),
+    ]),
   ])
 }
 var staticRenderFns = []
@@ -26342,7 +26344,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -26357,13 +26359,13 @@ var render = function() {
             staticClass:
               "absolute hover:text-white h-10 w-10 font-bold text-3xl border-none focus:outline-none mt-20",
             on: {
-              click: function($event) {
+              click: function ($event) {
                 return _vm.$emit("previous")
-              }
-            }
+              },
+            },
           },
           [_c("i", { staticClass: "fas fa-caret-left" })]
-        )
+        ),
       ]),
       _vm._v(" "),
       _vm._t("default"),
@@ -26375,14 +26377,14 @@ var render = function() {
             staticClass:
               "absolute  hover:text-white h-10 w-10 font-bold text-3xl -ml-10 border-none focus:outline-none mt-20",
             on: {
-              click: function($event) {
+              click: function ($event) {
                 return _vm.$emit("next")
-              }
-            }
+              },
+            },
           },
           [_c("i", { staticClass: "fas fa-caret-right" })]
-        )
-      ])
+        ),
+      ]),
     ],
     2
   )
@@ -26405,7 +26407,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -26418,10 +26420,10 @@ var render = function() {
           "rounded-full h-3 w-3 flex items-center justify-center bg-gray-800 inline-block mr-2 cursor-pointer hover:bg-gray-200 border-none focus:outline-none",
         class: { "bg-red-700": _vm.num === 0, "bg-gray-800": _vm.num !== 0 },
         on: {
-          click: function($event) {
+          click: function ($event) {
             return _vm.currentSlide(0)
-          }
-        }
+          },
+        },
       }),
       _vm._v(" "),
       _c("button", {
@@ -26429,10 +26431,10 @@ var render = function() {
           "rounded-full h-3 w-3 flex items-center justify-center bg-gray-800 inline-block mr-2 cursor-pointer hover:bg-gray-200 border-none focus:outline-none",
         class: { "bg-red-700": _vm.num === 1, "bg-gray-800": _vm.num !== 1 },
         on: {
-          click: function($event) {
+          click: function ($event) {
             return _vm.currentSlide(1)
-          }
-        }
+          },
+        },
       }),
       _vm._v(" "),
       _c("button", {
@@ -26440,10 +26442,10 @@ var render = function() {
           "rounded-full h-3 w-3 flex items-center justify-center bg-gray-800 inline-block mr-2 cursor-pointer hover:bg-gray-200 border-none focus:outline-none",
         class: { "bg-red-700": _vm.num === 2, "bg-gray-800": _vm.num !== 2 },
         on: {
-          click: function($event) {
+          click: function ($event) {
             return _vm.currentSlide(2)
-          }
-        }
+          },
+        },
       }),
       _vm._v(" "),
       _c("button", {
@@ -26451,13 +26453,13 @@ var render = function() {
           "rounded-full h-3 w-3 flex items-center justify-center bg-gray-800 inline-block mr-2 cursor-pointer hover:bg-gray-200 border-none focus:outline-none",
         class: { "bg-red-700": _vm.num === 3, "bg-gray-800": _vm.num !== 3 },
         on: {
-          click: function($event) {
+          click: function ($event) {
             return _vm.currentSlide(3)
-          }
-        }
+          },
+        },
       }),
       _vm._v(" "),
-      _vm._t("default")
+      _vm._t("default"),
     ],
     2
   )
@@ -26480,17 +26482,17 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "flex items-center justify-center" }, [
     _c("input", {
       attrs: { id: "chk", type: "checkbox", name: "checkbox" },
-      on: { click: _vm.selectAll }
+      on: { click: _vm.selectAll },
     }),
     _vm._v(" "),
-    _c("span", { staticClass: "ml-2" }, [_vm._v("Select All")])
+    _c("span", { staticClass: "ml-2" }, [_vm._v("Select All")]),
   ])
 }
 var staticRenderFns = []
@@ -26511,7 +26513,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -26523,14 +26525,14 @@ var render = function() {
         staticStyle: { outline: "none" },
         attrs: { type: "button" },
         on: {
-          click: function($event) {
+          click: function ($event) {
             $event.preventDefault()
             return _vm.openPopUp($event)
-          }
-        }
+          },
+        },
       },
       [_c("i", { staticClass: "delete fas fa-trash-alt" })]
-    )
+    ),
   ])
 }
 var staticRenderFns = []
@@ -26551,7 +26553,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -26561,15 +26563,15 @@ var render = function() {
         {
           staticClass:
             "bg-blue-200 rounded-lg border-2 border-black shadow-md p-6 pr-10",
-          staticStyle: { "min-width": "340px" }
+          staticStyle: { "min-width": "340px" },
         },
         [
           _vm.popUpWarning
             ? _c("div", { staticClass: "flex items-center" }, [
-                _vm._v(_vm._s(_vm.warning1))
+                _vm._v(_vm._s(_vm.warning1)),
               ])
             : _c("div", { staticClass: "flex items-center" }, [
-                _vm._v(_vm._s(_vm.warning2))
+                _vm._v(_vm._s(_vm.warning2)),
               ]),
           _vm._v(" "),
           _c("div", { staticClass: "mt-4 flex justify-around" }, [
@@ -26582,10 +26584,10 @@ var render = function() {
                     staticStyle: { outline: "none" },
                     attrs: { type: "button" },
                     on: {
-                      click: function($event) {
+                      click: function ($event) {
                         return _vm.deleteRow()
-                      }
-                    }
+                      },
+                    },
                   },
                   [_vm._v("Delete")]
                 )
@@ -26597,10 +26599,10 @@ var render = function() {
                     staticStyle: { outline: "none" },
                     attrs: { type: "button" },
                     on: {
-                      click: function($event) {
+                      click: function ($event) {
                         return _vm.deleteRows()
-                      }
-                    }
+                      },
+                    },
                   },
                   [_vm._v("Delete")]
                 ),
@@ -26612,16 +26614,16 @@ var render = function() {
                   "rounded-md border-2 border-black p-2 bg-green-500 hover:bg-green-700",
                 staticStyle: { outline: "none" },
                 on: {
-                  click: function($event) {
+                  click: function ($event) {
                     $event.preventDefault()
                     _vm.closePopUp()
                     _vm.closePopUp2()
-                  }
-                }
+                  },
+                },
               },
               [_vm._v("Cancel")]
-            )
-          ])
+            ),
+          ]),
         ]
       )
     : _vm._e()
@@ -26644,7 +26646,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -26654,10 +26656,10 @@ var render = function() {
       {
         staticClass: "relative",
         on: {
-          mouseleave: function($event) {
+          mouseleave: function ($event) {
             _vm.optionsAreVisible = false
-          }
-        }
+          },
+        },
       },
       [
         _c("div", [
@@ -26667,29 +26669,30 @@ var render = function() {
                 name: "model",
                 rawName: "v-model",
                 value: _vm.service,
-                expression: "service"
-              }
+                expression: "service",
+              },
             ],
             staticClass:
               "shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 text-center mb-1  leading-tight focus:outline-none focus:shadow-outline cursor-pointer",
             attrs: {
               id: _vm.unique,
               name: _vm.unique,
-              placeholder: "Select A Service Type"
+              placeholder: "Select A Service Type",
+              autocomplete: "off",
             },
             domProps: { value: _vm.service },
             on: {
-              click: function($event) {
+              click: function ($event) {
                 $event.stopPropagation()
                 return _vm.open($event)
               },
-              input: function($event) {
+              input: function ($event) {
                 if ($event.target.composing) {
                   return
                 }
                 _vm.service = $event.target.value
-              }
-            }
+              },
+            },
           }),
           _vm._v(" "),
           _vm.optionsAreVisible
@@ -26699,9 +26702,9 @@ var render = function() {
                   {
                     staticClass:
                       "absolute z-auto max-h-20 w-full shadow appearance-none border rounded bg-white text-sm \n                font-bold text-gray-700 text-center mb-3 leading-tight focus:outline-none focus:shadow-outline overflow-auto",
-                    style: { height: _vm.height, overflow: _vm.overflow }
+                    style: { height: _vm.height, overflow: _vm.overflow },
                   },
-                  _vm._l(_vm.list, function(item) {
+                  _vm._l(_vm.list, function (item) {
                     return _c(
                       "li",
                       {
@@ -26709,21 +26712,21 @@ var render = function() {
                         staticClass:
                           "hover:bg-blue-700 hover:text-white m-2 p-2",
                         on: {
-                          click: function($event) {
+                          click: function ($event) {
                             return _vm.selectOption(item)
-                          }
-                        }
+                          },
+                        },
                       },
                       [_vm._v(_vm._s(item))]
                     )
                   }),
                   0
-                )
+                ),
               ])
-            : _vm._e()
-        ])
+            : _vm._e(),
+        ]),
       ]
-    )
+    ),
   ])
 }
 var staticRenderFns = []
@@ -26744,7 +26747,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -26752,7 +26755,7 @@ var render = function() {
     "div",
     {
       staticClass:
-        "relative mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-2 rounded focus:outline-none focus:shadow-outline"
+        "relative mr-8 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-2 rounded focus:outline-none focus:shadow-outline",
     },
     [
       _c(
@@ -26761,14 +26764,14 @@ var render = function() {
           staticClass: "relative z-10 focus:outline-none focus:shadow-outline",
           staticStyle: { outline: "none" },
           on: {
-            click: function($event) {
+            click: function ($event) {
               _vm.optionsAreVisible = !_vm.optionsAreVisible
-            }
-          }
+            },
+          },
         },
         [
           _vm._v("\n        My Account"),
-          _c("i", { staticClass: "far fa-user ml-3" })
+          _c("i", { staticClass: "far fa-user ml-3" }),
         ]
       ),
       _vm._v(" "),
@@ -26777,21 +26780,21 @@ var render = function() {
             staticClass: "fixed h-full w-full inset-0 cursor-default",
             attrs: { tabindex: "-1" },
             on: {
-              click: function($event) {
+              click: function ($event) {
                 _vm.optionsAreVisible = false
-              }
-            }
+              },
+            },
           })
         : _vm._e(),
       _vm._v(" "),
       _vm.optionsAreVisible
         ? _c("div", { staticClass: "flex justify-center" }, [_vm._m(0)])
-        : _vm._e()
+        : _vm._e(),
     ]
   )
 }
 var staticRenderFns = [
-  function() {
+  function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
@@ -26799,7 +26802,7 @@ var staticRenderFns = [
       "ul",
       {
         staticClass:
-          "absolute z-auto max-h-20 w-full mt-2 shadow appearance-none border rounded bg-white text-xs\n        font-bold text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline overflow-auto"
+          "absolute z-auto max-h-20 w-full mt-2 shadow appearance-none border rounded bg-white text-xs\n        font-bold text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline overflow-auto",
       },
       [
         _c("li", { staticClass: "text-center pr-2 pl-2" }, [
@@ -26808,10 +26811,10 @@ var staticRenderFns = [
               "li",
               {
                 staticClass:
-                  "mt-2 mb-2 font-bold text-gray-800 hover:bg-blue-700 hover:text-white"
+                  "mt-2 mb-2 font-bold text-gray-800 hover:bg-blue-700 hover:text-white",
               },
               [_vm._v("Schedule A Service")]
-            )
+            ),
           ]),
           _vm._v(" "),
           _c("a", { attrs: { href: "/account/update" } }, [
@@ -26819,10 +26822,10 @@ var staticRenderFns = [
               "li",
               {
                 staticClass:
-                  "mb-2 font-bold text-gray-800 hover:bg-blue-700 hover:text-white"
+                  "mb-2 font-bold text-gray-800 hover:bg-blue-700 hover:text-white",
               },
               [_vm._v("Update Account Information")]
-            )
+            ),
           ]),
           _vm._v(" "),
           _c("a", { attrs: { href: "/account/password" } }, [
@@ -26830,10 +26833,10 @@ var staticRenderFns = [
               "li",
               {
                 staticClass:
-                  "mb-2 font-bold text-gray-800 hover:bg-blue-700 hover:text-white"
+                  "mb-2 font-bold text-gray-800 hover:bg-blue-700 hover:text-white",
               },
               [_vm._v("Update Password")]
-            )
+            ),
           ]),
           _vm._v(" "),
           _c("a", { attrs: { href: "/account/billing" } }, [
@@ -26841,10 +26844,10 @@ var staticRenderFns = [
               "li",
               {
                 staticClass:
-                  "mb-2 font-bold text-gray-800 hover:bg-blue-700 hover:text-white"
+                  "mb-2 font-bold text-gray-800 hover:bg-blue-700 hover:text-white",
               },
               [_vm._v("Update/Set Up Billing Information")]
-            )
+            ),
           ]),
           _vm._v(" "),
           _c("a", { attrs: { href: "/account/appointments" } }, [
@@ -26852,10 +26855,10 @@ var staticRenderFns = [
               "li",
               {
                 staticClass:
-                  "mb-2 font-bold text-gray-800 hover:bg-blue-700 hover:text-white"
+                  "mb-2 font-bold text-gray-800 hover:bg-blue-700 hover:text-white",
               },
               [_vm._v("Pool Service Appointments")]
-            )
+            ),
           ]),
           _vm._v(" "),
           _c("a", { attrs: { href: "/account/cleaning" } }, [
@@ -26863,10 +26866,10 @@ var staticRenderFns = [
               "li",
               {
                 staticClass:
-                  "mb-2 font-bold text-gray-800 hover:bg-blue-700 hover:text-white"
+                  "mb-2 font-bold text-gray-800 hover:bg-blue-700 hover:text-white",
               },
               [_vm._v("Pool Service History")]
-            )
+            ),
           ]),
           _vm._v(" "),
           _c("a", { attrs: { href: "/account/cancel" } }, [
@@ -26874,15 +26877,15 @@ var staticRenderFns = [
               "li",
               {
                 staticClass:
-                  "mb-2 font-bold text-gray-800 hover:bg-blue-700 hover:text-white"
+                  "mb-2 font-bold text-gray-800 hover:bg-blue-700 hover:text-white",
               },
               [_vm._v("Cancel Account")]
-            )
-          ])
-        ])
+            ),
+          ]),
+        ]),
       ]
     )
-  }
+  },
 ]
 render._withStripped = true
 
@@ -26901,7 +26904,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -26916,7 +26919,7 @@ var render = function() {
                 "div",
                 {
                   staticClass: "bg-red-500 rounded-lg shadow-md p-6 pr-10",
-                  staticStyle: { "min-width": "340px" }
+                  staticStyle: { "min-width": "340px" },
                 },
                 [
                   _c(
@@ -26925,38 +26928,38 @@ var render = function() {
                       staticClass: "absolute top-0 right-0 py-2 px-3 text-base",
                       staticStyle: { outline: "none" },
                       on: {
-                        click: function($event) {
+                        click: function ($event) {
                           $event.preventDefault()
                           _vm.popUpOpen = false
-                        }
-                      }
+                        },
+                      },
                     },
                     [_c("i", { staticClass: "fas fa-window-close" })]
                   ),
                   _vm._v(" "),
                   _vm.timeUnavailable
                     ? _c("div", { staticClass: "flex items-center" }, [
-                        _vm._v(_vm._s(_vm.message.am))
+                        _vm._v(_vm._s(_vm.message.am)),
                       ])
                     : _vm._e(),
                   _vm._v(" "),
                   _vm.pmTimeUnavailable
                     ? _c("div", { staticClass: "flex items-center" }, [
-                        _vm._v(_vm._s(_vm.message.pm))
+                        _vm._v(_vm._s(_vm.message.pm)),
                       ])
                     : _vm._e(),
                   _vm._v(" "),
                   _vm.scheduleUpdated
                     ? _c("div", { staticClass: "flex items-center" }, [
-                        _vm._v(_vm._s(_vm.message.updated))
+                        _vm._v(_vm._s(_vm.message.updated)),
                       ])
-                    : _vm._e()
+                    : _vm._e(),
                 ]
-              )
-            ])
+              ),
+            ]),
           ]
         )
-      : _vm._e()
+      : _vm._e(),
   ])
 }
 var staticRenderFns = []
@@ -26977,7 +26980,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -26986,13 +26989,13 @@ var render = function() {
         "div",
         {
           staticClass:
-            "absolute bg-gray-800 text-white rounded py-2 px-2 focus:outline-none focus:shadow-outline"
+            "absolute bg-gray-800 text-white rounded py-2 px-2 focus:outline-none focus:shadow-outline",
         },
         [
           _c("h1", { staticClass: "text-center" }, [
             _vm._v(
               "This account has been cancelled.  Use your previous account information to reactivate account?"
-            )
+            ),
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "flex mt-4 justify-between" }, [
@@ -27002,11 +27005,11 @@ var render = function() {
                 staticClass: "absolute top-0 right-0 py-2 px-3 text-base",
                 staticStyle: { outline: "none" },
                 on: {
-                  click: function($event) {
+                  click: function ($event) {
                     $event.preventDefault()
                     _vm.accountCancelled = false
-                  }
-                }
+                  },
+                },
               },
               [_c("i", { staticClass: "fas fa-window-close" })]
             ),
@@ -27016,7 +27019,7 @@ var render = function() {
               {
                 staticClass:
                   "bg-blue-500 hover:bg-blue-700 text-white  py-2 px-2 ml-2 rounded focus:outline-none focus:shadow-outline",
-                on: { click: _vm.oldAccount }
+                on: { click: _vm.oldAccount },
               },
               [_vm._v("Yes, Use previous account information.")]
             ),
@@ -27026,7 +27029,7 @@ var render = function() {
               {
                 staticClass:
                   "bg-blue-500 hover:bg-blue-700 text-white  py-2 px-2 ml-2 rounded focus:outline-none focus:shadow-outline",
-                on: { click: _vm.newAccount }
+                on: { click: _vm.newAccount },
               },
               [_vm._v("Yes, But start a new account.")]
             ),
@@ -27036,11 +27039,11 @@ var render = function() {
               {
                 staticClass:
                   "bg-red-500 hover:bg-red-700 text-white  py-2 px-2 ml-2 rounded focus:outline-none focus:shadow-outline",
-                on: { click: _vm.oneTimeService }
+                on: { click: _vm.oneTimeService },
               },
               [_vm._v("No, Just need a one time service.")]
-            )
-          ])
+            ),
+          ]),
         ]
       )
     : _vm._e()
@@ -27063,7 +27066,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -27078,23 +27081,23 @@ var render = function() {
               _vm._v(" "),
               _vm.sched
                 ? _c("div", { staticClass: "flex justify-center" }, [
-                    _vm._v(_vm._s(_vm.message[0]))
+                    _vm._v(_vm._s(_vm.message[0])),
                   ])
                 : _vm._e(),
               _vm._v(" "),
               _vm.register
                 ? _c("div", { staticClass: "flex justify-center" }, [
-                    _vm._v(_vm._s(_vm.message[1]))
+                    _vm._v(_vm._s(_vm.message[1])),
                   ])
-                : _vm._e()
-            ])
-          ])
+                : _vm._e(),
+            ]),
+          ]),
         ]
       )
     : _vm._e()
 }
 var staticRenderFns = [
-  function() {
+  function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
@@ -27104,11 +27107,11 @@ var staticRenderFns = [
           _c("div"),
           _c("div"),
           _c("div"),
-          _c("div")
-        ])
-      ])
+          _c("div"),
+        ]),
+      ]),
     ])
-  }
+  },
 ]
 render._withStripped = true
 
@@ -27127,7 +27130,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -27139,14 +27142,14 @@ var render = function() {
         staticStyle: { outline: "none" },
         attrs: { type: "button" },
         on: {
-          click: function($event) {
+          click: function ($event) {
             $event.preventDefault()
             return _vm.updateValues($event)
-          }
-        }
+          },
+        },
       },
       [_c("i", { staticClass: "update fas fa-edit" })]
-    )
+    ),
   ])
 }
 var staticRenderFns = []
@@ -45790,8 +45793,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/juanr.quilesjr/Desktop/KennedyPools-Masonite/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/juanr.quilesjr/Desktop/KennedyPools-Masonite/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/juanr.quilesjr/Desktop/Kennedy-Pools/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/juanr.quilesjr/Desktop/Kennedy-Pools/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

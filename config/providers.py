@@ -10,8 +10,8 @@ from masonite.validation.providers.ValidationProvider import ValidationProvider
 
 from masonite.logging.providers import LoggingProvider
 from masonite.validation.providers import ValidationProvider
-# from billing.providers import BillingProvider
-# from masonite.api.providers import ApiProvider
+from billing.providers import BillingProvider
+from masonite.api.providers import ApiProvider
 #from app.providers import AdministratorProvider
 
 
@@ -45,8 +45,8 @@ PROVIDERS = [
     # Third Party Providers
     LoggingProvider,
     ValidationProvider,
-    # BillingProvider,
-    # ApiProvider,
+    BillingProvider,
+    ApiProvider,
 
     # Application Providers
     #AdministratorProvider,

@@ -3,7 +3,7 @@
     <div class='relative' @mouseleave="optionsAreVisible=false" >
         <!-- <button v-if="optionsAreVisible" @click="optionsAreVisible = false" class="fixed inset-0 h-full w-full cursor-default"></button> -->
         <div>
-            <input @click.stop='open' v-model="service" :id="unique"  :name="unique" placeholder="Select A Service Type"
+            <input @click.stop='open' v-model="service" :id="unique"  :name="unique" placeholder="Select A Service Type" autocomplete='off'
             class="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 text-center mb-1  leading-tight focus:outline-none focus:shadow-outline cursor-pointer">
             <div class="flex justify-center" v-if="optionsAreVisible"   > 
                 <ul  :style="{height: height, overflow: overflow}" class="absolute z-auto max-h-20 w-full shadow appearance-none border rounded bg-white text-sm 

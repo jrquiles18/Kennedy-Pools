@@ -14,46 +14,46 @@
 </template>
 
 <script>
-
-export default{
-    
-    data(){
-        return {
-            timeUnavailable: false,
-            pmTimeUnavailable: false, 
-            scheduleUpdated: false,
-            popUpOpen: false,
-            message: {
-                am:  "Whoa, I'm still sleeping at that time. Please pick a time after 9:00 am.",
-                pm: "No, No, I have to get to bed some time. Please pick a time before 6:00 pm.",
-                updated:  "Your pool appointment has been updated."
-            }, 
-        }
-    },
-    mounted(){
-        EventBus.$on('error-message-am', timeUnavailable => {
-            this.timeUnavailable = timeUnavailable
-            this.popUpOpen = true
-            
-        }),
-
-        EventBus.$on('error-message-pm', pmTimeUnavailable => {
-            this.pmTimeUnavailable = pmTimeUnavailable
-            this.timeUnavailable = false
-            this.popUpOpen = true
-        }),
-
-        EventBus.$on('update-schedule', scheduleUpdated => {
-            if (scheduleUpdated === false){
-                this.popUpOpen = false
+    import { EventBus } from '../bus.js'
+    export default{
+        
+        data(){
+            return {
+                timeUnavailable: false,
+                pmTimeUnavailable: false, 
+                scheduleUpdated: false,
+                popUpOpen: false,
+                message: {
+                    am:  "Whoa, I'm still sleeping at that time. Please pick a time after 9:00 am.",
+                    pm: "No, No, I have to get to bed some time. Please pick a time before 6:00 pm.",
+                    updated:  "Your pool appointment has been updated."
+                }, 
             }
-            else {
-                this.scheduleUpdated = scheduleUpdated
+        },
+        mounted(){
+            EventBus.$on('error-message-am', timeUnavailable => {
+                this.timeUnavailable = timeUnavailable
                 this.popUpOpen = true
-            }
-        })
+                
+            }),
+
+            EventBus.$on('error-message-pm', pmTimeUnavailable => {
+                this.pmTimeUnavailable = pmTimeUnavailable
+                this.timeUnavailable = false
+                this.popUpOpen = true
+            }),
+
+            EventBus.$on('update-schedule', scheduleUpdated => {
+                if (scheduleUpdated === false){
+                    this.popUpOpen = false
+                }
+                else {
+                    this.scheduleUpdated = scheduleUpdated
+                    this.popUpOpen = true
+                }
+            })
+        }
     }
-}
 </script>
 
 <style>

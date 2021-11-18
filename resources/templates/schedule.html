@@ -6,9 +6,9 @@
 </div>
 <div class="flex justify-center">
   <div class="mt-8 w-full max-w-lg" >
-      <!-- <div id='popup' class='flex justify-center'>
+      <div id='popup' class='flex justify-center'>
         <popup></popup>
-      </div> -->
+      </div>
     <div class="mb-5 mt-3 text-center text-white text-3xl font-bold">
       <h1>Schedule Pool Service</h1>
     </div>
@@ -94,6 +94,7 @@
         <!-- <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 mt-3 rounded focus:outline-none focus:shadow-outline" type="submit"  name="one_time_service_cancel">Cancel Appointment</button> -->
         {%elif not auth() %}
         <button @click='openSpinner' class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-3 rounded focus:outline-none focus:shadow-outline" type="submit"  name="one_time_service">One Time Service</button>
+        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mt-3 rounded focus:outline-none focus:shadow-outline" type="reset" name="clear_form">Clear Form</button> 
         {%else%}
         <button @click='openSpinner' class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-3 rounded focus:outline-none focus:shadow-outline" type="sumbit" name="schedule">Schedule</button>
         <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mt-3 rounded focus:outline-none focus:shadow-outline" type="reset" name="clear_form">Clear Form</button>
