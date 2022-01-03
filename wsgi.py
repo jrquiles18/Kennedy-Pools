@@ -46,5 +46,5 @@ will allow WSGI servers to pick it up from the command line
 
 application = container.make('WSGI')
 
-gunicorn3 wsgi:application 
+gunicorn wsgi:application 
 # wsgi:application
