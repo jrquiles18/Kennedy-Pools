@@ -46,4 +46,4 @@ will allow WSGI servers to pick it up from the command line
 
 application = container.make('WSGI')
 
-gunicorn application 
+gunicorn -w 2 wsgi:application
